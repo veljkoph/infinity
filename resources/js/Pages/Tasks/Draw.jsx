@@ -18,8 +18,9 @@ const Draw = ({ showHelp }) => {
     const [lines, setLines] = React.useState([]);
     const isDrawing = React.useRef(false);
     const stageRef = React.useRef(null);
-    const text = "AEZAKMI"
+    const text = "ДРУГ"
     const [fontSize, setFontSize] = React.useState(160);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     React.useEffect(() => {
         //Setting fontsize on canvas
@@ -34,24 +35,26 @@ const Draw = ({ showHelp }) => {
     const [textResult, setTextResult] = React.useState("");
 
     //ovde lezi problem -rerebder
-    const worker = createWorker();
+
 
     const handleExport = () => {
         const uri = stageRef.current.toDataURL();
         console.log(uri)
         setSelectedImage(uri)
-        downloadURI(uri, 'stage.png');
+        //downloadURI(uri, 'stage.png');
     };
     const convertImageToText = React.useCallback(async () => {
         console.log('Converting....')
-        const worker = await createWorker("srp_latn")
+        setIsLoading(true)
+        const worker = await createWorker("srp")
         const { data } = await worker.recognize(selectedImage);
         setTextResult(data.text);
-    }, [worker, selectedImage]);
+        setIsLoading(false)
+    }, [selectedImage]);
 
     React.useEffect(() => {
         if (!selectedImage) return;
-        //convertImageToText();
+        convertImageToText();
         console.log('effect')
     }, [selectedImage, convertImageToText])
 
@@ -103,7 +106,7 @@ const Draw = ({ showHelp }) => {
                 {!showHelp && <span style={{ fontSize: `${fontSize}px` }} className={`absolute  rounded-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10`}>{text}</span>}
 
                 <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
-                <span className="text-lg font-bold">Res: {textResult}</span>
+                {isLoading ? "Loading..." : <span className="text-lg font-bold">Res: {textResult}</span>}
             </div>
             <Stage
                 width={1024}
@@ -121,8 +124,8 @@ const Draw = ({ showHelp }) => {
                             key={i}
                             points={line.points}
                             stroke="#303030"
-                            strokeWidth={10}
-                            tension={0.5}
+                            strokeWidth={15}
+                            tension={0}
                             lineCap="round"
                             lineJoin="round"
                             globalCompositeOperation={
