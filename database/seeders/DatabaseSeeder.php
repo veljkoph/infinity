@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +27,14 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Matematika', 'image' => 'https://t3.ftcdn.net/jpg/02/28/93/86/360_F_228938670_6fqDkXHDva9Up2yu7pQG9iecxqeJGZgC.jpg'],
             ['name' => 'Priroda i društvo', 'image' => 'https://goricamilacic.e-teachers.me/wp-content/uploads/2022/05/pd-01.jpg'],
 
+        ]);
+
+        DB::table('languages')->insert([
+
+            ['name' => 'Srpski latinica', 'image' => 'serbia.png', 'slug' => 'sr'],
+            ['name' => 'Српски ћирилица',  'image' => 'serbia.png', 'slug' => 'sr_cir'],
+            ['name' => 'Hrvatski', 'image' => 'croatia.png', 'slug' => 'hr'],
+            ['name' => 'Slovenščina',  'image' => 'slovenia.png', 'slug' => 'slo'],
         ]);
     }
 }

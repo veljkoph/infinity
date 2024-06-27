@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DrawController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\Test;
@@ -24,6 +25,7 @@ Route::get('/dashboard', function () {
 
 
 Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects.home');
+Route::get('/region', [LanguageController::class, 'index'])->name('subjects.languages');
 Route::get('/draw', [DrawController::class, 'index'])->name('draw.home');
 
 Route::middleware('auth')->group(function () {

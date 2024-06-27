@@ -1,0 +1,7 @@
+export default {
+    translation: {
+        "welcome": "Добродошли",
+        "subjects": "Предмети",
+        "chooseLanguage": 'Одабери језик'
+    }
+};

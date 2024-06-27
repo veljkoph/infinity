@@ -3,11 +3,13 @@ import React from 'react'
 
 const Layout = ({ children }) => {
     return (
-        <div className='max-w-screen-lg mx-auto'>
+        <div className='max-w-screen-lg mx-auto min-h-screen flex flex-col'>
             <Header />
-            <div>
+            <div className='flex flex-grow'>
                 {children}
             </div>
+
+
         </div>
     )
 }
