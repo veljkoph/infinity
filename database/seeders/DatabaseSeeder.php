@@ -36,5 +36,17 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Hrvatski', 'image' => 'croatia.png', 'slug' => 'hr'],
             ['name' => 'Slovenščina',  'image' => 'slovenia.png', 'slug' => 'slo'],
         ]);
+
+        DB::table('questions')->insert([
+            'title' => 'Odaberi tačan odgovor!',
+            'audio' => 'dog.mp3',
+            'question' => 'Koja životinja se čuje?',
+            'answers' =>  json_encode([
+                ['text' => 'Pas', 'isTrue' => true, 'image' => 'dog.png'],
+                ['text' => 'Konj', 'isTrue' => false,  'image' => 'horse.png'],
+                ['text' => 'Mačka', 'isTrue' => false,  'image' => 'cat.png'],
+                ['text' => 'Ptica', 'isTrue' => false, 'image' => 'bird.png'],
+            ]),
+        ]);
     }
 }
