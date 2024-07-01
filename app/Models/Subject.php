@@ -11,6 +11,13 @@ class Subject extends Model
     protected $fillable = [
         'name',
         'image',
+        'language_id'
     ];
+
+    public function subjectLang()
+    {
+        return $this->belongsTo(Language::class, 'id');
+    }
+
     use HasFactory;
 }

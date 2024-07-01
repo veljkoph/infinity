@@ -12,5 +12,11 @@ class Language extends Model
         'image',
         'slug',
     ];
+
+    public function subjectLang()
+    {
+        return $this->hasMany(Subject::class, 'id');
+    }
+
     use HasFactory;
 }

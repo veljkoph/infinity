@@ -18,6 +18,21 @@ export default {
             },
             colors: {
                 lightBlue: '#CBE5F1',
+                lightRed: '#F39C9C'
+            },
+            keyframes: {
+                borderFadeIn: {
+                    '0%': { borderColor: 'transparent', borderWidth: '1px' },
+                    '100%': { borderColor: '#F39C9C', borderWidth: '2px' },
+                },
+                fadeIn: {
+                    '0%': { opacity: 0, transform: 'scale(1)' },
+                    '100%': { opacity: 1, transform: 'scale(1)' },
+                },
+            },
+            animation: {
+                fadeIn: 'fadeIn 0.7s ease-out forwards',
+                borderFadeIn: 'borderFadeIn 0.5s ease-out forwards',
             },
         },
     },

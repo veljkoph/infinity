@@ -2,6 +2,8 @@ export default {
     translation: {
         "welcome": "Dobrodošli",
         "subjects": "Predmeti",
-        "chooseLanguage": 'Izaberi jezik'
+        "chooseLanguage": 'Izaberi jezik',
+        "proceed": 'Dalje',
+        "bravo": "Bravo"
     }
 };
