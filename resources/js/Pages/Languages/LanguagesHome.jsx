@@ -1,9 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { router } from '@inertiajs/react'
 
-const LanguageSelector = ({ languages, changeLanguageHandler }) => {
+const LanguageSelector = ({ languages }) => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    const changeLanguageHandler = (lang) => {
+        i18n.changeLanguage(lang)
+        router.visit(`/subjects/${i18n.language}`);
+    }
 
     return (
         <div className='w-full min-h-96 gap-8 flex flex-col p-20'>

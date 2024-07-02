@@ -3,19 +3,21 @@ import React from 'react'
 import { usePage } from '@inertiajs/react'
 
 import logo from '../../assets/infinity.png';
+import { useTranslation } from 'react-i18next';
 
 
 const Header = () => {
 
 
     const { url, component } = usePage()
+    const { i18n } = useTranslation()
 
     return (
         <header className="w-full text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
             <div className="container flex flex-col flex-wrap items-center p-5 mx-auto md:flex-row">
                 <nav className="flex flex-wrap gap-4 items-center text-base lg:w-2/5 md:ml-auto">
                     <Link
-                        href={route('subjects.home')}
+                        href={route('subjects.home', { slug: i18n.language })}
                         className={url.startsWith('/subjects') ? 'text-sm text-gray-600 hover:text-gray-900 underline' : 'text-sm text-gray-600 hover:text-gray-900'}
 
                     >

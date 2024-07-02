@@ -13,9 +13,9 @@ class Language extends Model
         'slug',
     ];
 
-    public function subjectLang()
+    public function subjects()
     {
-        return $this->hasMany(Subject::class, 'id');
+        return $this->hasMany(Subject::class, 'language_slug', 'slug');
     }
 
     use HasFactory;

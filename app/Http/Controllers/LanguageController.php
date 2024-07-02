@@ -11,6 +11,7 @@ class LanguageController extends Controller
 
     public function index()
     {
+
         $languages = Language::all();
         return Inertia::render('Languages/LanguagesHome', ['languages' => $languages]);
     }

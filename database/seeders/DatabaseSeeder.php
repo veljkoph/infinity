@@ -21,14 +21,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-
-        DB::table('subjects')->insert([
-            ['name' => 'Srpski', 'image' => 'https://professionalenglish.rs/wp-content/uploads/2020/01/slika-blog-1.jpg'],
-            ['name' => 'Matematika', 'image' => 'https://t3.ftcdn.net/jpg/02/28/93/86/360_F_228938670_6fqDkXHDva9Up2yu7pQG9iecxqeJGZgC.jpg'],
-            ['name' => 'Priroda i društvo', 'image' => 'https://goricamilacic.e-teachers.me/wp-content/uploads/2022/05/pd-01.jpg'],
-
-        ]);
-
         DB::table('languages')->insert([
 
             ['name' => 'Srpski latinica', 'image' => 'serbia.png', 'slug' => 'sr'],
@@ -36,6 +28,18 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Hrvatski', 'image' => 'croatia.png', 'slug' => 'hr'],
             ['name' => 'Slovenščina',  'image' => 'slovenia.png', 'slug' => 'slo'],
         ]);
+
+        DB::table('subjects')->insert([
+            ['name' => 'Srpski', 'image' => 'https://professionalenglish.rs/wp-content/uploads/2020/01/slika-blog-1.jpg', 'language_slug' => 'sr'],
+            ['name' => 'Matematika', 'image' => 'https://t3.ftcdn.net/jpg/02/28/93/86/360_F_228938670_6fqDkXHDva9Up2yu7pQG9iecxqeJGZgC.jpg', 'language_slug' => 'sr'],
+            ['name' => 'Priroda i društvo', 'image' => 'https://goricamilacic.e-teachers.me/wp-content/uploads/2022/05/pd-01.jpg', 'language_slug' => 'sr'],
+            ['name' => 'Српски', 'image' => 'https://professionalenglish.rs/wp-content/uploads/2020/01/slika-blog-1.jpg', 'language_slug' => 'sr_cir'],
+            ['name' => 'Математика', 'image' => 'https://t3.ftcdn.net/jpg/02/28/93/86/360_F_228938670_6fqDkXHDva9Up2yu7pQG9iecxqeJGZgC.jpg', 'language_slug' => 'sr_cir'],
+            ['name' => 'Природа и друштво', 'image' => 'https://goricamilacic.e-teachers.me/wp-content/uploads/2022/05/pd-01.jpg', 'language_slug' => 'sr_cir'],
+
+        ]);
+
+
 
         DB::table('questions')->insert([
             'title' => 'Odaberi tačan odgovor!',

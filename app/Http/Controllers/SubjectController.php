@@ -8,9 +8,12 @@ use Inertia\Inertia;
 
 class SubjectController extends Controller
 {
-    public function index()
+    public function index($slug)
     {
-        $subjects = Subject::all();
+
+        $subjects = Subject::where('language_slug', $slug)->get();
+
+
         return Inertia::render('Subjects/AllSubjects', ['subjects' => $subjects]);
     }
 }

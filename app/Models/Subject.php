@@ -11,12 +11,12 @@ class Subject extends Model
     protected $fillable = [
         'name',
         'image',
-        'language_id'
+        'language_slug'
     ];
 
-    public function subjectLang()
+    public function language()
     {
-        return $this->belongsTo(Language::class, 'id');
+        return $this->belongsTo(Language::class, 'language_slug', 'slug');
     }
 
     use HasFactory;
