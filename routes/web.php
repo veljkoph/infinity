@@ -23,6 +23,8 @@ Route::get('/dashboard', function () {
 
 
 Route::get('/subjects/{slug}', [SubjectController::class, 'index'])->name('subjects.home');
+
+
 Route::get('/region', [LanguageController::class, 'index'])->name('subjects.languages');
 Route::get('/draw', [DrawController::class, 'index'])->name('draw.home');
 Route::get('/questions', [QuestionController::class, 'index'])->name('questions.home');

@@ -8,6 +8,7 @@ const LanguageSelector = ({ languages }) => {
 
     const changeLanguageHandler = (lang) => {
         i18n.changeLanguage(lang)
+        localStorage.setItem('lang', lang);
         router.visit(`/subjects/${i18n.language}`);
     }
 

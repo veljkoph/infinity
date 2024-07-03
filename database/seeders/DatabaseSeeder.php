@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
@@ -39,7 +40,19 @@ class DatabaseSeeder extends Seeder
 
         ]);
 
+        DB::table('lessons')->insert([
+            ['name' => 'Slova', 'image' => 'letters.png', 'subject_id' => 1],
+            ['name' => 'Čitanje', 'image' => 'reading.png', 'subject_id' => 1],
+            ['name' => 'Pisanje', 'image' => 'writing.png', 'subject_id' => 1],
 
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Admin User',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('password'), // Uverite se da koristite jaku lozinku
+
+        ]);
 
         DB::table('questions')->insert([
             'title' => 'Odaberi tačan odgovor!',

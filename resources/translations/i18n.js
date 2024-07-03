@@ -6,7 +6,10 @@ import translation_srcir from './translation_srcir';
 import translation_slo from './translation_slo';
 import translation_hr from './translation_hr';
 
-
+const getInitialLanguage = () => {
+    const savedLanguage = localStorage.getItem('lang');
+    return savedLanguage || 'sr';
+};
 i18n.use(initReactI18next)
     .init({
         resources: {
@@ -16,7 +19,7 @@ i18n.use(initReactI18next)
             slo: translation_slo,
             hr: translation_hr
         },
-        fallbackLng: "sr",
+        fallbackLng: getInitialLanguage(),
         interpolation: {
             escapeValue: false
         }

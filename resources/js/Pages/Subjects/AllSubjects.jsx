@@ -16,7 +16,7 @@ const AllSubjects = ({ subjects }) => {
             >
                 {subject.name}
                 <img
-                    src={subject.image}
+                    src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${subject.image}`}
                     alt={subject.name}
                     className="max-w-20 rounded-md"
                 />

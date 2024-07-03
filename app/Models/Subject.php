@@ -18,6 +18,10 @@ class Subject extends Model
     {
         return $this->belongsTo(Language::class, 'language_slug', 'slug');
     }
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 
     use HasFactory;
 }

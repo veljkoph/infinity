@@ -12,8 +12,9 @@ const Header = () => {
     const { url, component } = usePage()
     const { i18n } = useTranslation()
 
+
     return (
-        <header className="w-full text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
+        <header className="w-full text-gray-700 bg-slate-200 border-t border-gray-100 shadow-sm body-font">
             <div className="container flex flex-col flex-wrap items-center p-5 mx-auto md:flex-row">
                 <nav className="flex flex-wrap gap-4 items-center text-base lg:w-2/5 md:ml-auto">
                     <Link
@@ -37,7 +38,22 @@ const Header = () => {
                 </a>
 
 
-                <div className="inline-flex items-center h-full ml-5 lg:w-2/5 lg:justify-end lg:ml-0">
+                <div className="inline-flex items-center h-full ml-5  gap-2 lg:w-2/5 lg:justify-end lg:ml-0">
+                    {(i18n.language == 'sr' || i18n.language == 'sr_cir') && <img
+                        src={`${import.meta.env.VITE_APP_BASE_URL}/storage/serbia.png`}
+                        alt={i18n.language}
+                        className="max-w-10 rounded-md"
+                    />}
+                    {i18n.language == 'hr' && <img
+                        src={`${import.meta.env.VITE_APP_BASE_URL}/storage/croatia.png`}
+                        alt={i18n.language}
+                        className="max-w-10 rounded-md"
+                    />}
+                    {(i18n.language == 'slo') && <img
+                        src={`${import.meta.env.VITE_APP_BASE_URL}/storage/slovenia.png`}
+                        alt={i18n.language}
+                        className="max-w-10 rounded-md"
+                    />}
                     <Link
                         href={route('login')}
                         className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
