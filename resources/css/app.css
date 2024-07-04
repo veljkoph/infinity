@@ -9,15 +9,21 @@
     padding: 0;
 }
 
+html {
+    overflow-y: scroll;
+}
+
 body,
 html {
     min-height: 100vh;
+
 }
 
 .hover-underline-animation {
-    padding: 12px 0;
+    padding: 15px 0;
     position: relative;
     color: #010405;
+
 }
 
 .hover-underline-animation::after {

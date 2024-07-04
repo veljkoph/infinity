@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DrawController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubjectController;
@@ -23,6 +24,7 @@ Route::get('/dashboard', function () {
 
 
 Route::get('/subjects/{slug}', [SubjectController::class, 'index'])->name('subjects.home');
+Route::get('/lessons/{id}', [LessonController::class, 'index'])->name('lessons.home');
 
 
 Route::get('/region', [LanguageController::class, 'index'])->name('subjects.languages');

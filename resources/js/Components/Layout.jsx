@@ -5,7 +5,7 @@ import { InertiaLink } from '@inertiajs/inertia-react';
 
 const Layout = ({ children }) => {
     return (
-        <div className="bg-gray-100 min-h-screen">
+        <div className="min-h-screen overflow-y-scroll">
             <div className="max-w-screen-md mx-auto px-4 py-8">
                 {/* Header */}
                 <header className="mb-8">
