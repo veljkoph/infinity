@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { router } from '@inertiajs/react'
 import TalkingAnimation from '@/Components/Global/TalkingAnimation';
+import BackgroudNature from '@/Components/Global/BackgroudNature';
 
 const LanguageSelector = ({ languages }) => {
 
@@ -14,8 +15,8 @@ const LanguageSelector = ({ languages }) => {
     }
 
     return (
-        <div className='w-full min-h-96 gap-8 flex flex-col p-12 relative'>
-            <img src={`${import.meta.env.VITE_APP_BASE_URL}/storage/bg.jpg`} className='absolute bottom-0 top-0 opacity-50 left-0 w-screen-md object-cover' />
+        <div className='w-full gap-8 flex flex-col p-12 relative'>
+            <BackgroudNature />
             <div className='absolute'>
                 <TalkingAnimation />
             </div>

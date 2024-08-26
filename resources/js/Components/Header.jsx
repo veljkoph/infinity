@@ -19,17 +19,12 @@ const Header = () => {
                 <nav className="flex flex-wrap gap-4 items-center text-base lg:w-2/5 md:ml-auto">
                     <Link
                         href={route('subjects.home', { slug: i18n.language })}
-                        className={url.startsWith('/subjects') ? 'text-sm  text-gray-600 hover:text-gray-900 underline' : 'text-sm  text-gray-600 hover:text-gray-900'}
+                        className={url.startsWith('/subjects') ? 'text-m  text-gray-600 hover:text-gray-900 underline' : '  text-gray-600 hover:text-gray-900 hover:underline'}
 
                     >
                         Predmeti
                     </Link>
-                    <Link
-                        href={route('login')}
-                        className="text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Podešavanja
-                    </Link>
+
 
                 </nav>
                 <a
@@ -62,18 +57,19 @@ const Header = () => {
                             className="max-w-10 rounded-md"
                         />}
                     </Link>
-                    <Link
-                        href={route('login')}
+                    <a
+                        href="http://127.0.0.1:8000/admin/login"
+
                         className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
 
-                    </Link>
+                    </a>
                 </div>
             </div>
-        </header>
+        </header >
     )
 }
 

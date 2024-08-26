@@ -100,13 +100,13 @@ const Draw = ({ showHelp }) => {
 
     return (
         <div className='bg-slate-200 relative'>
-            <div className='flex flex-col bg-slate-50 min-h-20'>
-
-
+            <div className='flex flex-col bg-white min-h-10'>
+                <span>Napiši reč sa slike</span>
+                {isLoading ? "Loading..." : <span className="text-lg font-bold">Res: {textResult}</span>}
                 {!showHelp && <span style={{ fontSize: `${fontSize}px` }} className={`absolute  rounded-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10`}>{text}</span>}
 
-                <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
-                {isLoading ? "Loading..." : <span className="text-lg font-bold">Res: {textResult}</span>}
+                {/* <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} /> */}
+
             </div>
             <Stage
                 width={1024}

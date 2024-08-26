@@ -14,6 +14,6 @@ class SubjectController extends Controller
         $subjects = Subject::where('language_slug', $slug)->get();
 
 
-        return Inertia::render('Subjects/AllSubjects', ['subjects' => $subjects]);
+        return Inertia::render('Subjects/SubjectsHome', ['subjects' => $subjects]);
     }
 }
