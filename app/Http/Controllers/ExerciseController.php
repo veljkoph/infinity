@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
+use App\Models\Exercise;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
-class TaskController extends Controller
+class ExerciseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $task = Task::where('task_id', $request->id)->get();
+        $exercises = Exercise::where('lesson_id', $request->id)->get();
+        return Inertia::render('Exercises/Exercises', ['exercises' => $exercises]);
     }
 
     /**
@@ -34,7 +36,7 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(Exercise $exercise)
     {
         //
     }
@@ -42,7 +44,7 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit(Exercise $exercise)
     {
         //
     }
@@ -50,7 +52,7 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Exercise $exercise)
     {
         //
     }
@@ -58,7 +60,7 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Exercise $exercise)
     {
         //
     }

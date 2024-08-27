@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SubjectResource\Pages;
-use App\Filament\Resources\SubjectResource\RelationManagers;
-use App\Models\Subject;
+use App\Filament\Resources\ExerciseResource\Pages;
+use App\Filament\Resources\ExerciseResource\RelationManagers;
+use App\Filament\Resources\ExerciseResource\RelationManagers\TasksRelationManager;
+use App\Models\Exercise;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -17,11 +18,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SubjectResource extends Resource
+class ExerciseResource extends Resource
 {
-    protected static ?string $model = Subject::class;
+    protected static ?string $model = Exercise::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-swatch';
+    protected static ?string $navigationIcon = 'heroicon-o-pencil';
 
     public static function form(Form $form): Form
     {
@@ -32,8 +33,8 @@ class SubjectResource extends Resource
                     ->maxLength(255),
                 FileUpload::make('image')
                     ->required(),
-                Select::make('language_slug')
-                    ->relationship('language', 'name')
+                Select::make('lesson_id')
+                    ->relationship('lesson', 'name')
                     ->required(),
             ]);
     }
@@ -44,7 +45,7 @@ class SubjectResource extends Resource
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('image'),
-                TextColumn::make('language.name')->label('Language'),
+                TextColumn::make('lesson.name')->label('Lekcija'),
                 TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
@@ -63,16 +64,16 @@ class SubjectResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TasksRelationManager::class
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSubjects::route('/'),
-            'create' => Pages\CreateSubject::route('/create'),
-            'edit' => Pages\EditSubject::route('/{record}/edit'),
+            'index' => Pages\ListExercises::route('/'),
+            'create' => Pages\CreateExercise::route('/create'),
+            'edit' => Pages\EditExercise::route('/{record}/edit'),
         ];
     }
 }

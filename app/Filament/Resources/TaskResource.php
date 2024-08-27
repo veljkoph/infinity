@@ -17,8 +17,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TaskResource extends Resource
 {
@@ -30,8 +28,8 @@ class TaskResource extends Resource
     {
         return $form
             ->schema([
-                Section::make(__('Osnovni podaci'))->columns(2)
-                    ->columnSpan(2)->schema([
+                Section::make(__('Osnovni podaci'))->columns(3)
+                    ->columnSpan(3)->schema([
                         Select::make('type')
                             ->options([
                                 'drag_and_drop' => 'Prevlačenje',
@@ -42,7 +40,9 @@ class TaskResource extends Resource
                             ])
                             ->required()
                             ->label('Tip zadatka'),
-
+                        Select::make('exercise_id')
+                            ->relationship('exercise', 'name')
+                            ->required()->label('Vežba'),
                         TextInput::make('title')
                             ->required()
                             ->label('Naslov (Npr. Klikni na tačan odgovor, Prevuci, Nacrtaj)'),

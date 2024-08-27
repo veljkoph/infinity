@@ -1,14 +1,12 @@
 <?php
 
 use App\Http\Controllers\DrawController;
+use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\Test;
-use App\Models\Subject;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,6 +23,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/subjects/{slug}', [SubjectController::class, 'index'])->name('subjects.home');
 Route::get('/lessons/{id}', [LessonController::class, 'index'])->name('lessons.home');
+Route::get('/exercises/{id}', [ExerciseController::class, 'index'])->name('exercises.home');
 
 
 Route::get('/region', [LanguageController::class, 'index'])->name('subjects.languages');

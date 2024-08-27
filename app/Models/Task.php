@@ -14,9 +14,14 @@ class Task extends Model
         'question',
         'answers',
         'helperText',
+        'exercise_id',
+        'type'
     ];
 
     protected $casts = ['answers' => 'array'];
-
+    public function exercise()
+    {
+        return $this->belongsTo(Exercise::class);
+    }
     use HasFactory;
 }
