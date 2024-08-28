@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +14,7 @@ class Exercise extends Model
         'image',
         'lesson_id'
     ];
-
+    protected $appends = ['firstTaskId'];
     public function lesson()
     {
         return $this->belongsTo(Lesson::class);
@@ -21,6 +22,14 @@ class Exercise extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class)->orderBy('order', 'asc');;
+    }
+    public function firstTask()
+    {
+        return $this->tasks()->where('exercise_id', $this->id)->first();
+    }
+    public function getFirstTaskIdAttribute()
+    {
+        return $this->tasks()->where('exercise_id', $this->id)->pluck('id')->first();
     }
 }

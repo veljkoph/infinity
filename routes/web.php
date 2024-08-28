@@ -7,6 +7,7 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -24,6 +25,7 @@ Route::get('/dashboard', function () {
 Route::get('/subjects/{slug}', [SubjectController::class, 'index'])->name('subjects.home');
 Route::get('/lessons/{id}', [LessonController::class, 'index'])->name('lessons.home');
 Route::get('/exercises/{id}', [ExerciseController::class, 'index'])->name('exercises.home');
+Route::get('/task/{id}', [TaskController::class, 'index'])->name('tasks.home');
 
 
 Route::get('/region', [LanguageController::class, 'index'])->name('subjects.languages');

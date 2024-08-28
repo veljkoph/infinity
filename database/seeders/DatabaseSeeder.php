@@ -49,21 +49,6 @@ class DatabaseSeeder extends Seeder
         DB::table('exercises')->insert([
             ['name' => 'Slovo A', 'image' => 'letters.png', 'lesson_id' => 1],
             ['name' => 'Slovo B', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo V', 'image' => 'v.jpg', 'lesson_id' => 1],
-            ['name' => 'Slovo G', 'image' => 'v.jpg', 'lesson_id' => 1],
-            ['name' => 'Slovo D', 'image' => 'v.jpg', 'lesson_id' => 1],
-            ['name' => 'Slovo B', 'image' => 'b.jpg', 'lesson_id' => 1],
-            ['name' => 'Slovo V', 'image' => 'v.jpg', 'lesson_id' => 1],
-            ['name' => 'Slovo G', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo D', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo B', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo V', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo G', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo D', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo B', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo V', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo G', 'image' => 'letters.png', 'lesson_id' => 1],
-            ['name' => 'Slovo D', 'image' => 'letters.png', 'lesson_id' => 1],
 
         ]);
 

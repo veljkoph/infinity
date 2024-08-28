@@ -7,7 +7,7 @@ const Questions = ({ task }) => {
     const [isPlaying, setIsPlaying] = useState(false)
     const [isFinished, setIsFinished] = useState(false)
     const [wrongAnswerIndices, setWrongAnswerIndices] = useState([]);
-    console.log(wrongAnswerIndices)
+    console.log(task)
     const playAudio = () => {
         if (audioRef.current) {
             setIsPlaying(true)
@@ -37,7 +37,7 @@ const Questions = ({ task }) => {
             </button>
             {isFinished && <Correct />}
             {
-                !task.answers[0].image ?
+                task.answers[0].image ?
                     <ul className='grid grid-cols-2 gap-5 justify-center items-center mx-auto my-auto '>
                         {task.answers.map((answer, index) => (
                             <li onClick={() => correctAnswerHandler(index, answer)} key={index} className={`flex flex-col items-center justify-center cursor-pointer rounded-md bg-white transform transition-transform duration-300 hover:scale-105 ${wrongAnswerIndices.includes(index) ? 'animate-borderFadeIn inset-0' : 'border-2 '}`}>
@@ -46,14 +46,14 @@ const Questions = ({ task }) => {
                                     alt={answer.name}
                                     className="w-36 h-36 object-cover bg-white rounded-md "
                                 />
-                                <span className='text-xl font-bold mb-2'> {answer.text}</span>
+                                <span className='text-xl font-bold mb-2'> {answer.answer}</span>
                             </li>
                         ))}
                     </ul> :
                     <ul className='grid w-full grid-cols-2 gap-4 justify-center items-center pt-20'>
-                        {task.answers.map((answer, index) => (
+                        {task.answers.map((item, index) => (
                             <li onClick={() => correctAnswerHandler(index, answer)} key={index} className={`flex items-center  w-full justify-center h-20  bg-white shadow-sm  rounded-md transition-colors duration-500 ease-in-out cursor-pointer ${wrongAnswerIndices.includes(index) ? 'animate-borderFadeIn inset-0' : 'border-2  border-transparent'}`}>
-                                {answer.text}
+                                {item.answer}
                             </li>
 
                         ))}

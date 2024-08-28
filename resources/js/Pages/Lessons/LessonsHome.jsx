@@ -1,4 +1,5 @@
 import BackgroudNature from '@/Components/Global/BackgroudNature';
+import Empty from '@/Components/Global/Empty';
 import { Link, router } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -25,7 +26,7 @@ const LessonsHome = ({ lessons }) => {
                             className="max-w-20 rounded-md"
                         />
                     </li> </Link>)}
-            {lessons.length < 1 && <span>Za izabrani predmet nema lekcija</span>}
+            {lessons.length < 1 && <Empty text={t('noLessons')} />}
         </div>
     )
 }

@@ -4,6 +4,8 @@ export default {
         "subjects": "Predmeti",
         "chooseLanguage": 'Odberi jezik',
         "proceed": 'Dalje',
-        "bravo": "Bravo"
+        "bravo": "Bravo",
+        'noExercises': "Nema vežbi za ovu lekciju",
+        'noLessons': "Nema lekcija za ovaj predmet"
     }
 };
