@@ -10,8 +10,7 @@ const Header = () => {
 
 
     const { url, component } = usePage()
-    const { i18n } = useTranslation()
-
+    const { i18n, t } = useTranslation()
 
     return (
         <header className="w-full text-gray-700 bg-slate-100 border-t border-gray-100 shadow-sm body-font">
@@ -22,7 +21,7 @@ const Header = () => {
                         className={url.startsWith('/subjects') ? 'text-m  text-gray-600 hover:text-gray-900 underline' : '  text-gray-600 hover:text-gray-900 hover:underline'}
 
                     >
-                        Predmeti
+                        {t('subjects')}
                     </Link>
 
 
