@@ -29,12 +29,20 @@ class Task extends Model
     public function getNextTaskIdAttribute()
     {
         $nextTask = Task::where('exercise_id', $this->exercise_id)
-            ->where('order', '>', $this->order)
+            ->where(function ($query) {
+                $query->where('order', '>', $this->order)
+                    ->orWhere(function ($query) {
+                        $query->where('order', $this->order)
+                            ->where('id', '>', $this->id);
+                    });
+            })
             ->orderBy('order', 'asc')
+            ->orderBy('id', 'asc')
             ->first();
 
         // Vrati ID sledećeg taska ili `null` ako ne postoji
         return $nextTask ? $nextTask->id : null;
     }
+
     use HasFactory;
 }

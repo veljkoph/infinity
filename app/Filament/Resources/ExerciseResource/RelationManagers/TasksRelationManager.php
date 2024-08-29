@@ -48,6 +48,11 @@ class TasksRelationManager extends RelationManager
                         TextInput::make('question')
                             ->required()
                             ->label('Pitanje'),
+                        FileUpload::make('sound')
+                            ->label('Zvuk')
+                            ->acceptedFileTypes(['audio/*'])
+                            ->directory('sounds')
+                            ->maxSize(10240),
                         Repeater::make('answers')
                             ->label('Odgovori')
                             ->minItems(2)

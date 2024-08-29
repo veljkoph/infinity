@@ -6,6 +6,7 @@ export default {
         "proceed": 'Даље',
         "bravo": "Браво",
         'noExercises': "Нема вежби за ову лекцију",
-        'noLessons': "Нема лекција за овај предмет"
+        'noLessons': "Нема лекција за овај предмет",
+         "finishedExercise": "Сви задаци су решени! БРАВО!"
     }
 };
