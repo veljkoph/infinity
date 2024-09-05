@@ -11,12 +11,12 @@ class Subject extends Model
     protected $fillable = [
         'name',
         'image',
-        'language_slug'
+        'language_id'
     ];
 
     public function language()
     {
-        return $this->belongsTo(Language::class, 'language_slug', 'slug');
+        return $this->belongsTo(Language::class);
     }
     public function lessons()
     {

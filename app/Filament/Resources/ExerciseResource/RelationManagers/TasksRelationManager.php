@@ -67,6 +67,18 @@ class TasksRelationManager extends RelationManager
                                     ->default(false),
                             ])->rules('required_without_all:answers.*.answer,answers.*.image')
                     ]),
+                Section::make(__('CRTANJE SLOVA'))->columns(1)
+                    ->columnSpan(2)->visible(fn($get) => $get('type') === 'drawing')->schema([
+                        TextInput::make('helperText')
+                            ->required()
+                            ->label('SLOVO/REČ'),
+                        FileUpload::make('sound')
+                            ->label('Zvuk')
+                            ->acceptedFileTypes(['audio/*'])
+                            ->directory('sounds')
+                            ->maxSize(10240),
+
+                    ]),
             ]);
     }
 

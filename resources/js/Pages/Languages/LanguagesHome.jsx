@@ -8,10 +8,11 @@ const LanguageSelector = ({ languages }) => {
 
     const { t, i18n } = useTranslation();
 
+
     const changeLanguageHandler = (lang) => {
-        i18n.changeLanguage(lang)
-        localStorage.setItem('lang', lang);
-        router.visit(`/subjects/${i18n.language}`);
+        i18n.changeLanguage(lang.slug)
+        localStorage.setItem('lang', lang.slug);
+        router.visit(`/subjects/${lang.id}`);
     }
 
     return (
@@ -25,7 +26,7 @@ const LanguageSelector = ({ languages }) => {
                     <li
                         key={lang.id}
                         className='flex text-gray-800 flex-row cursor-pointer w-80 justify-between items-center font-semibold text-xl hover-underline-animation'
-                        onClick={() => changeLanguageHandler(lang.slug)}
+                        onClick={() => changeLanguageHandler(lang)}
                     >
                         {lang.name}
                         <img

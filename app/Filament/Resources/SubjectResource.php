@@ -32,7 +32,7 @@ class SubjectResource extends Resource
                     ->maxLength(255),
                 FileUpload::make('image')
                     ->required(),
-                Select::make('language_slug')
+                Select::make('language_id')
                     ->relationship('language', 'name')
                     ->required(),
             ]);

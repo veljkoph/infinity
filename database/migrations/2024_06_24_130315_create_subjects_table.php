@@ -16,8 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('image')->nullable();
-            $table->string('language_slug');
-            $table->foreign('language_slug')->references('slug')->on('languages')->onDelete('cascade');
+            $table->foreignId('language_id')->on('languages')->onDelete('cascade');
         });
     }
 

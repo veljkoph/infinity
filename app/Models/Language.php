@@ -17,6 +17,10 @@ class Language extends Model
     {
         return $this->hasMany(Subject::class, 'language_slug', 'slug');
     }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 
     use HasFactory;
 }

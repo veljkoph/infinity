@@ -13,7 +13,8 @@ function downloadURI(uri, name) {
 
 
 
-const Draw = ({ showHelp }) => {
+const Draw = ({ task }) => {
+    console.log(task)
     const [tool, setTool] = React.useState('pen');
     const [lines, setLines] = React.useState([]);
     const isDrawing = React.useRef(false);
@@ -101,9 +102,9 @@ const Draw = ({ showHelp }) => {
     return (
         <div className='bg-slate-200 relative'>
             <div className='flex flex-col bg-white min-h-10'>
-                <span>Napiši reč sa slike</span>
+                <span>{task.title}</span>
                 {isLoading ? "Loading..." : <span className="text-lg font-bold">Res: {textResult}</span>}
-                {!showHelp && <span style={{ fontSize: `${fontSize}px` }} className={`absolute  rounded-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10`}>{text}</span>}
+                {task.helperText && <span style={{ fontSize: `${fontSize}px` }} className={`absolute  rounded-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10`}>{task.helperText}</span>}
 
                 {/* <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} /> */}
 

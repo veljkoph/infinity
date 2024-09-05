@@ -31,12 +31,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('subjects')->insert([
-            ['name' => 'Srpski', 'image' => 'alphabet.png', 'language_slug' => 'sr'],
-            ['name' => 'Matematika', 'image' => 'math.png', 'language_slug' => 'sr'],
-            ['name' => 'Priroda i društvo', 'image' =>  'geo.png', 'language_slug' => 'sr'],
-            ['name' => 'Српски', 'image' => 'alphabet.png', 'language_slug' => 'sr_cir'],
-            ['name' => 'Математика', 'image' => 'math.png', 'language_slug' => 'sr_cir'],
-            ['name' => 'Природа и друштво', 'image' => 'geo.png', 'language_slug' => 'sr_cir'],
+            ['name' => 'Srpski', 'image' => 'alphabet.png', 'language_id' => '1'],
+            ['name' => 'Matematika', 'image' => 'math.png', 'language_id' => '1'],
+            ['name' => 'Priroda i društvo', 'image' =>  'geo.png', 'language_id' => '1'],
+            ['name' => 'Српски', 'image' => 'alphabet.png', 'language_id' => '2'],
+            ['name' => 'Математика', 'image' => 'math.png', 'language_id' => '2'],
+            ['name' => 'Природа и друштво', 'image' => 'geo.png', 'language_id' => '2'],
 
         ]);
 
@@ -56,6 +56,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@admin.com',
             'password' => Hash::make('password'),
+            'language_id' => 1,
 
         ]);
 
