@@ -14,12 +14,12 @@ function downloadURI(uri, name) {
 
 
 const Draw = ({ task }) => {
-    console.log(task)
+
     const [tool, setTool] = React.useState('pen');
     const [lines, setLines] = React.useState([]);
     const isDrawing = React.useRef(false);
     const stageRef = React.useRef(null);
-    const text = "ДРУГ"
+
     const [fontSize, setFontSize] = React.useState(160);
     const [isLoading, setIsLoading] = React.useState(false);
 
@@ -27,9 +27,9 @@ const Draw = ({ task }) => {
         //Setting fontsize on canvas
         const baseFontSize = 240;
         const fontSizeStep = 10;
-        const newFontSize = baseFontSize - ((text.length - 1) * fontSizeStep);
+        const newFontSize = baseFontSize - ((task.helperText.length - 1) * fontSizeStep);
         setFontSize(newFontSize);
-    }, [text]);
+    }, [task]);
 
 
     const [selectedImage, setSelectedImage] = React.useState(null);
@@ -45,9 +45,24 @@ const Draw = ({ task }) => {
         //downloadURI(uri, 'stage.png');
     };
     const convertImageToText = React.useCallback(async () => {
+        let lang;
+        const storedLang = localStorage.getItem('lang');
+        switch (storedLang) {
+            case 'sr':
+                lang = 'srp_latn';
+                break;
+            case 'sr_cir':
+                lang = 'srp';
+                break;
+            case 'cro':
+                lang = 'hrv';
+                break;
+            default:
+                lang = 'hrv';
+        }
         console.log('Converting....')
         setIsLoading(true)
-        const worker = await createWorker("srp")
+        const worker = await createWorker(lang)
         const { data } = await worker.recognize(selectedImage);
         setTextResult(data.text);
         setIsLoading(false)
