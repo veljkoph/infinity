@@ -4,9 +4,13 @@ export default {
         "subjects": "Предмети",
         "chooseLanguage": 'Одабери језик',
         "proceed": 'Даље',
+         'back': "Назад",
         "bravo": "Браво",
         'noExercises': "Нема вежби за ову лекцију",
         'noLessons': "Нема лекција за овај предмет",
-         "finishedExercise": "Сви задаци су решени! БРАВО!"
+         "finishedExercise": "Сви задаци су решени! БРАВО!",
+            'check': 'Провери',
+              'youEntered': 'Унели сте',
+             'tryAgain': 'Покушај поново'
     }
 };

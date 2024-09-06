@@ -1,30 +1,24 @@
+import ModalDraw from '@/Components/Tasks/ModalDraw';
+import useStringSimilarity from '@/Hooks/UseStringSimilarity';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Stage, Layer, Line, Text } from 'react-konva';
 import { createWorker } from 'tesseract.js';
 
-function downloadURI(uri, name) {
-    var link = document.createElement('a');
-    link.download = name;
-    link.href = uri;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-
 
 const Draw = ({ task }) => {
-
+    const { t } = useTranslation()
     const [tool, setTool] = React.useState('pen');
     const [lines, setLines] = React.useState([]);
     const isDrawing = React.useRef(false);
     const stageRef = React.useRef(null);
+    const { similarity, calculateSimilarity } = useStringSimilarity();
 
     const [fontSize, setFontSize] = React.useState(160);
     const [isLoading, setIsLoading] = React.useState(false);
 
     React.useEffect(() => {
-        //Setting fontsize on canvas
+
         const baseFontSize = 240;
         const fontSizeStep = 10;
         const newFontSize = baseFontSize - ((task.helperText.length - 1) * fontSizeStep);
@@ -35,14 +29,12 @@ const Draw = ({ task }) => {
     const [selectedImage, setSelectedImage] = React.useState(null);
     const [textResult, setTextResult] = React.useState("");
 
-    //ovde lezi problem -rerebder
 
 
     const handleExport = () => {
         const uri = stageRef.current.toDataURL();
-        console.log(uri)
         setSelectedImage(uri)
-        //downloadURI(uri, 'stage.png');
+
     };
     const convertImageToText = React.useCallback(async () => {
         let lang;
@@ -66,12 +58,14 @@ const Draw = ({ task }) => {
         const { data } = await worker.recognize(selectedImage);
         setTextResult(data.text);
         setIsLoading(false)
+
+        calculateSimilarity(data.text, task.helperText);
+
     }, [selectedImage]);
 
     React.useEffect(() => {
         if (!selectedImage) return;
         convertImageToText();
-        console.log('effect')
     }, [selectedImage, convertImageToText])
 
 
@@ -114,16 +108,18 @@ const Draw = ({ task }) => {
 
 
 
+
     return (
         <div className='bg-slate-200 relative'>
-            <div className='flex flex-col bg-white min-h-10'>
-                <span>{task.title}</span>
-                {isLoading ? "Loading..." : <span className="text-lg font-bold">Res: {textResult}</span>}
+            <div className='flex flex-col items-center justify-center bg-white min-h-10'>
+                <span className='text-center  text-xl font-bold'>{task.title}</span>
+                {/* {isLoading ? "Loading..." : <span className="text-lg font-bold">Res: {textResult}</span>} */}
                 {task.helperText && <span style={{ fontSize: `${fontSize}px` }} className={`absolute  rounded-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10`}>{task.helperText}</span>}
 
                 {/* <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} /> */}
 
             </div>
+            {textResult && <ModalDraw setLines={setLines} setTextResult={setTextResult} similarity={similarity} result={textResult} hasNextTask={task.nextTaskId} lessonId={task.lessonId} />}
             <Stage
                 width={1024}
                 height={window.innerHeight - 200}
@@ -151,7 +147,7 @@ const Draw = ({ task }) => {
                     ))}
                 </Layer>
             </Stage>
-            <select
+            {/* <select
                 value={tool}
                 onChange={(e) => {
                     setTool(e.target.value);
@@ -159,49 +155,9 @@ const Draw = ({ task }) => {
             >
                 <option value="pen">Pen</option>
                 <option value="eraser">Eraser</option>
-            </select>
-            <button onClick={handleExport}>Click here to log stage data URL</button>
+            </select> */}
+            <button className='bg-green-700 text-white p-2 rounded-md  absolute right-20' onClick={handleExport}>{t('check')}</button>
         </div>
     );
 };
 export default Draw;
-// import { useCallback, useEffect, useState } from 'react';
-// import { createWorker } from 'tesseract.js';
-
-// function Draw() {
-
-//     const handleChangeImage = e => {
-//         if (e.target.files[0]) {
-//             setSelectedImage(e.target.files[0]);
-//         } else {
-//             setSelectedImage(null);
-//             setTextResult("")
-//         }
-//     }
-
-//     return (
-//         <div className="App">
-//             <h1>ImText</h1>
-//             <p>Gets words in image!</p>
-//             <div className="input-wrapper">
-//                 <label htmlFor="upload">Upload Image</label>
-//                 <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
-//             </div>
-
-//             <div className="result">
-//                 {selectedImage && (
-//                     <div className="box-image">
-//                         <img src={URL.createObjectURL(selectedImage)} alt="thumb" />
-//                     </div>
-//                 )}
-//                 {textResult && (
-//                     <div className="box-p">
-//                         <p>{textResult}</p>
-//                     </div>
-//                 )}
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default Draw;

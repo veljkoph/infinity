@@ -20,12 +20,15 @@ class Task extends Model
     ];
 
     protected $casts = ['answers' => 'array'];
-    protected $appends = ['nextTaskId'];
+    protected $appends = ['nextTaskId', 'lessonId'];
     public function exercise()
     {
         return $this->belongsTo(Exercise::class);
     }
-
+    public function getLessonIdAttribute()
+    {
+        return $this->exercise()->pluck('lesson_id')->first();
+    }
     public function getNextTaskIdAttribute()
     {
         $nextTask = Task::where('exercise_id', $this->exercise_id)
