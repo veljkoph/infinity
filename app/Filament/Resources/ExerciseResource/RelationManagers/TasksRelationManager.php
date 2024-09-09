@@ -6,6 +6,7 @@ use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -67,11 +68,44 @@ class TasksRelationManager extends RelationManager
                                     ->default(false),
                             ])->rules('required_without_all:answers.*.answer,answers.*.image')
                     ]),
+                Section::make(__('PREVLACENJE'))->columns(1)
+                    ->columnSpan(2)->visible(fn($get) => $get('type') === 'drag_and_drop')->schema([
+
+                        Repeater::make('answers')
+                            ->label('Questions and Answers')
+                            ->schema([
+                                // Sekcija za pitanja (Questions)
+                                Section::make('Questions')->schema([
+                                    Grid::make(3)->schema([
+                                        TextInput::make('question.text')->label('Question Text'),
+                                        FileUpload::make('question.image')->label('Question Image'),
+                                        FileUpload::make('question.sound')->label('Question Sound'),
+                                    ]),
+                                ]),
+
+                                // Sekcija za odgovore (Answers)
+                                Section::make('Answers')->schema([
+                                    Grid::make(3)->schema([
+                                        TextInput::make('answer.text')->label('Answer Text'),
+                                        FileUpload::make('answer.image')->label('Answer Image'),
+                                        FileUpload::make('answer.sound')->label('Answer Sound'),
+                                    ]),
+                                ]),
+                            ])
+
+                            ->minItems(2)
+                            ->maxItems(4)
+                            ->columns(2)
+                            ->required(),
+                    ]),
                 Section::make(__('CRTANJE SLOVA'))->columns(1)
                     ->columnSpan(2)->visible(fn($get) => $get('type') === 'drawing')->schema([
                         TextInput::make('helperText')
                             ->required()
                             ->label('SLOVO/REČ'),
+                        Checkbox::make('showHelperText')
+                            ->label('Prikaži reč na pozadini u aplikaciji?')
+                            ->default(true),
                         FileUpload::make('sound')
                             ->label('Zvuk')
                             ->acceptedFileTypes(['audio/*'])
@@ -79,6 +113,7 @@ class TasksRelationManager extends RelationManager
                             ->maxSize(10240),
 
                     ]),
+
             ]);
     }
 

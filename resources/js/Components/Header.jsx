@@ -17,7 +17,7 @@ const Header = () => {
             <div className="container flex flex-col flex-wrap items-center p-5 mx-auto md:flex-row">
                 <nav className="flex flex-wrap gap-4 items-center text-base lg:w-2/5 md:ml-auto">
                     <Link
-                        href={route('subjects.home', { slug: i18n.language })}
+                        href={route('subjects.languages', { slug: i18n.language })}
                         className={url.startsWith('/subjects') ? 'text-m  text-gray-600 hover:text-gray-900 underline' : '  text-gray-600 hover:text-gray-900 hover:underline'}
 
                     >

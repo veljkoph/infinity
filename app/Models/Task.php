@@ -14,6 +14,7 @@ class Task extends Model
         'question',
         'answers',
         'helperText',
+        'showHelperText',
         'exercise_id',
         'type',
 

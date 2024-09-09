@@ -1,12 +1,14 @@
 import React from 'react'
 import Questions from './Questions';
 import Draw from './Draw';
+import DragNDrop from './DragNDrop';
 
 const Home = ({ task }) => {
     console.log(task)
     const components = {
         question: Questions,
-        drawing: Draw
+        drawing: Draw,
+        drag_and_drop: DragNDrop
 
     };
 

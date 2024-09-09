@@ -7,9 +7,10 @@ const Questions = ({ task }) => {
 
     const audioRef = useRef(null);
 
-    const [isPlaying, setIsPlaying] = useState(false)
+
     const [isFinished, setIsFinished] = useState(false)
     const [wrongAnswerIndices, setWrongAnswerIndices] = useState([]);
+    const [isPlaying, setIsPlaying] = useState(false)
 
     const playAudio = () => {
         if (audioRef.current) {

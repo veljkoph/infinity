@@ -3,8 +3,9 @@ import bravoAnimation from '../../Animations/bravo.json'
 import Lottie from "lottie-react";
 import { useTranslation } from 'react-i18next';
 import { router } from '@inertiajs/react';
+import { useEffect } from 'react';
 const PASSABLE = 70
-const ModalDraw = ({ setLines, hasNextTask, lessonId, result, similarity, setTextResult }) => {
+const ModalDraw = ({ setLines, hasNextTask, lessonId, result, similarity, setTextResult, nextTaskId }) => {
 
     const { t } = useTranslation()
     const style = {
@@ -15,6 +16,14 @@ const ModalDraw = ({ setLines, hasNextTask, lessonId, result, similarity, setTex
         setTextResult(null)
         setLines([])
     }
+
+    useEffect(() => {
+        if (similarity > PASSABLE) {
+            nextTaskId && setTimeout(() => router.visit(`/task/${nextTaskId}`), 1000)
+        }
+
+    }, [])
+
     return (
         <div className="fixed animate-fadeIn z-50 inset-0 flex items-center justify-center overflow-hidden ">
             <div className="fixed inset-0 transition-opacity">

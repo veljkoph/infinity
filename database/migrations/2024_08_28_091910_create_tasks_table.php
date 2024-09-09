@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('question')->nullable();
             $table->json('answers')->nullable();
             $table->text('helperText')->nullable();
+            $table->boolean('showHelperText')->nullable();
             $table->timestamps();
             $table->integer('order')->default(0);
             $table->enum('type', ['drag_and_drop', 'drawing', 'question', 'math']);

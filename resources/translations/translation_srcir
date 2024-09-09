@@ -11,6 +11,7 @@ export default {
          "finishedExercise": "Сви задаци су решени! БРАВО!",
             'check': 'Провери',
               'youEntered': 'Унели сте',
-             'tryAgain': 'Покушај поново'
+             'tryAgain': 'Покушај поново',
+               'skip':'Прескочи'
     }
 };

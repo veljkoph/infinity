@@ -4,7 +4,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Stage, Layer, Line, Text } from 'react-konva';
 import { createWorker } from 'tesseract.js';
-
+import { router } from '@inertiajs/react';
+import TaskHeader from '@/Components/Global/TaskHeader';
 
 const Draw = ({ task }) => {
     const { t } = useTranslation()
@@ -16,6 +17,8 @@ const Draw = ({ task }) => {
 
     const [fontSize, setFontSize] = React.useState(160);
     const [isLoading, setIsLoading] = React.useState(false);
+
+
 
     React.useEffect(() => {
 
@@ -97,29 +100,21 @@ const Draw = ({ task }) => {
 
 
 
-    const handleChangeImage = e => {
-        if (e.target.files[0]) {
-            setSelectedImage(e.target.files[0]);
-        } else {
-            setSelectedImage(null);
-            setTextResult("")
-        }
-    }
+
 
 
 
 
     return (
         <div className='bg-slate-200 relative'>
-            <div className='flex flex-col items-center justify-center bg-white min-h-10'>
-                <span className='text-center  text-xl font-bold'>{task.title}</span>
-                {/* {isLoading ? "Loading..." : <span className="text-lg font-bold">Res: {textResult}</span>} */}
-                {task.helperText && <span style={{ fontSize: `${fontSize}px` }} className={`absolute  rounded-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10`}>{task.helperText}</span>}
+            <TaskHeader task={task} />
+            {/* {isLoading ? "Loading..." : <span className="text-lg font-bold">Res: {textResult}</span>} */}
+            {task.showHelperText ? <span style={{ fontSize: `${fontSize}px` }} className={`absolute  rounded-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10`}>{task.helperText}</span> : ''}
 
-                {/* <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} /> */}
+            {/* <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} /> */}
 
-            </div>
-            {textResult && <ModalDraw setLines={setLines} setTextResult={setTextResult} similarity={similarity} result={textResult} hasNextTask={task.nextTaskId} lessonId={task.lessonId} />}
+
+            {textResult && <ModalDraw nextTaskId={task.nextTaskId} setLines={setLines} setTextResult={setTextResult} similarity={similarity} result={textResult} hasNextTask={task.nextTaskId} lessonId={task.lessonId} />}
             <Stage
                 width={1024}
                 height={window.innerHeight - 200}
