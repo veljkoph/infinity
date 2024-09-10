@@ -4,7 +4,7 @@ import Draw from './Draw';
 import DragNDrop from './DragNDrop';
 
 const Home = ({ task }) => {
-    console.log(task)
+
     const components = {
         question: Questions,
         drawing: Draw,

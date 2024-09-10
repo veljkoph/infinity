@@ -74,8 +74,12 @@ class TasksRelationManager extends RelationManager
                         Repeater::make('answers')
                             ->label('Questions and Answers')
                             ->schema([
-                                // Sekcija za pitanja (Questions)
-                                Section::make('Questions')->schema([
+                                TextInput::make('id')
+                                    ->label('ID')
+                                    ->default(fn() => (string) \Illuminate\Support\Str::uuid()) // Generiši UUID
+                                    ->hidden(),
+                                Section::make('Pitanje')->schema([
+
                                     Grid::make(3)->schema([
                                         TextInput::make('question.text')->label('Question Text'),
                                         FileUpload::make('question.image')->label('Question Image'),

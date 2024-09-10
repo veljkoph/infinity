@@ -1,17 +1,19 @@
 import { useDrop } from 'react-dnd';
 import { useState } from 'react';
 
-const DropZone = ({ id, correct }) => {
+const DropZone = ({ dropItem }) => {
     const [hasDropped, setHasDropped] = useState(false);
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: 'BOX',
         drop: (item) => {
-            console.log(item, "sss")
-            if (correct) {
+
+            if (item.id == dropItem.id) {
                 setHasDropped(true);
+                return { correct: true };
             } else {
-                alert('Pogrešan odgovor! Pokušaj ponovo.');
+
+                return { correct: false };
             }
         },
 
@@ -23,16 +25,21 @@ const DropZone = ({ id, correct }) => {
     return (
         <div
             ref={drop}
+
             style={{
-                height: '100px',
-                width: '200px',
-                margin: '8px',
-                backgroundColor: hasDropped ? 'lightgreen' : isOver ? 'lightcoral' : 'lightgray',
-                textAlign: 'center',
-                lineHeight: '100px',
+                padding: '16px',
+                cursor: 'move',
+                width: '220px',
+                height: '220px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 10,
+                backgroundColor: hasDropped ? 'lightgreen' : isOver ? 'white' : 'lightgray',
             }}
         >
-            {hasDropped ? 'Tačno!' : 'Prevuci ovde'}xD
+            <span className='text-center font-bold text-2xl' > {dropItem.answer.text}</span>
         </div>
     );
 };
