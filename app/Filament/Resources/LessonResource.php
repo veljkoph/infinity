@@ -25,7 +25,7 @@ class LessonResource extends Resource
     protected static ?string $model = Lesson::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
-
+    protected static ?string $navigationLabel = 'Lekcije';
     public static function form(Form $form): Form
     {
         return $form

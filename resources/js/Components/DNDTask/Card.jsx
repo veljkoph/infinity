@@ -31,7 +31,6 @@ const DragCard = ({ item, handleDropSuccess }) => {
             width: '220px',
             padding: '5px',
             height: '220px',
-
             display: dropResult?.correct === true ? 'none' : 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',

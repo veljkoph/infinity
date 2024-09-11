@@ -23,6 +23,8 @@ class ExerciseResource extends Resource
     protected static ?string $model = Exercise::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-pencil';
+    protected static ?string $navigationLabel = 'Vežbe';
+
 
     public static function form(Form $form): Form
     {
