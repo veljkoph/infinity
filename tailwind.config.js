@@ -18,7 +18,8 @@ export default {
             },
             colors: {
                 lightBlue: '#CBE5F1',
-                lightRed: '#F39C9C'
+                lightRed: '#F39C9C',
+                blue: "#6495EC"
             },
             keyframes: {
                 borderFadeIn: {

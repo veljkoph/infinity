@@ -34,7 +34,7 @@ class TasksRelationManager extends RelationManager
                                 'drag_and_drop' => 'Prevlačenje',
                                 'drawing' => 'Crtanje Slova/Reči',
                                 'question' => 'Pitanja sa odgovorima',
-                                'other_type1' => 'Other Type 1',
+                                'connect_lines' => 'Povezivanje',
                                 'other_type2' => 'Other Type 2',
                             ])
                             ->required()

@@ -19,6 +19,18 @@ html {
 
 }
 
+.element {
+    background-color: white;
+    /* Početna boja */
+    transition: background-color 0.5s ease;
+    /* Animacija prelaza */
+}
+
+.element:hover {
+    background-color: rgb(100, 149, 236);
+    /* Ciljna boja */
+}
+
 .hover-underline-animation {
     padding: 15px 0;
     position: relative;

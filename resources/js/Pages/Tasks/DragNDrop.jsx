@@ -15,7 +15,7 @@ const DragNDrop = ({ task }) => {
     const [correctDrops, setCorrectDrops] = useState([]);
     const [shuffledAnswers, setShuffledAnswers] = useState([]);
 
-
+    console.log(task)
     useEffect(() => {
         const shuffled = [...task.answers]
             .map((item) => ({ ...item, sort: Math.random() }))

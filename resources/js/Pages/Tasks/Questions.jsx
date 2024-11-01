@@ -23,7 +23,7 @@ const Questions = ({ task }) => {
 
         if (answer.isTrue) {
             setIsFinished(true)
-            // task.nextTaskId && setTimeout(() => router.visit(`/task/${task.nextTaskId}`), 1000)
+            task.nextTaskId && setTimeout(() => router.visit(`/task/${task.nextTaskId}`), 1000)
         }
         if (!answer.isTrue && !wrongAnswerIndices.includes(index)) {
             setWrongAnswerIndices([...wrongAnswerIndices, index]);

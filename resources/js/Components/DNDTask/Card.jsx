@@ -9,11 +9,11 @@ const DragCard = ({ item, handleDropSuccess }) => {
         item: item,
         end: (item, monitor) => {
             const dR = monitor.getDropResult();
+
             setDropResult(dR)
 
-            if (dR.correct) {
+            if (dR?.correct) {
                 handleDropSuccess(item.id)
-
             }
         },
         collect: (monitor) => ({
