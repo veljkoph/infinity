@@ -84,11 +84,54 @@ class TasksRelationManager extends RelationManager
                                         TextInput::make('question.text')->label('Question Text'),
                                         FileUpload::make('question.image')->label('Question Image'),
                                         FileUpload::make('question.sound')->label('Question Sound'),
+                                        TextInput::make('question.id')
+                                            ->label('ID')
+                                            ->default(fn() => (string) \Illuminate\Support\Str::uuid()) // Generiši UUID
+                                            ->hidden(),
                                     ]),
                                 ]),
 
                                 // Sekcija za odgovore (Answers)
                                 Section::make('Answers')->schema([
+                                    Grid::make(3)->schema([
+                                        TextInput::make('answer.text')->label('Answer Text'),
+                                        FileUpload::make('answer.image')->label('Answer Image'),
+                                        FileUpload::make('answer.sound')->label('Answer Sound'),
+                                        TextInput::make('answer.id')
+                                            ->label('ID')
+                                            ->default(fn() => (string) \Illuminate\Support\Str::uuid()) // Generiši UUID
+                                            ->hidden(),
+                                    ]),
+                                ]),
+                            ])
+
+                            ->minItems(2)
+                            ->maxItems(4)
+                            ->columns(2)
+                            ->required(),
+                    ]),
+                Section::make(__('POVEZIVANJE'))->columns(1)
+                    ->columnSpan(2)->visible(fn($get) => $get('type') === 'connect_lines')->schema([
+
+                        Repeater::make('answers')
+                            ->label('Pitanja i odgovori koji su povezani linijama')
+                            ->schema([
+                                TextInput::make('id')
+                                    ->label('ID')
+                                    ->default(fn() => (string) \Illuminate\Support\Str::uuid())
+                                    ->hidden(),
+
+                                Section::make('Pitanje (Bice prikazano sa leve strane)')->schema([
+
+                                    Grid::make(3)->schema([
+                                        TextInput::make('question.text')->label('Question Text'),
+                                        FileUpload::make('question.image')->label('Question Image'),
+                                        FileUpload::make('question.sound')->label('Question Sound'),
+                                    ]),
+                                ]),
+
+
+                                Section::make('Odgovor (Bice prikazan sa desne strane)')->schema([
                                     Grid::make(3)->schema([
                                         TextInput::make('answer.text')->label('Answer Text'),
                                         FileUpload::make('answer.image')->label('Answer Image'),
