@@ -127,6 +127,10 @@ class TasksRelationManager extends RelationManager
                                         TextInput::make('question.text')->label('Question Text'),
                                         FileUpload::make('question.image')->label('Question Image'),
                                         FileUpload::make('question.sound')->label('Question Sound'),
+                                        TextInput::make('question.id')
+                                            ->label('ID')
+                                            ->default(fn() => (string) \Illuminate\Support\Str::uuid()) // Generiši UUID
+                                            ->hidden(),
                                     ]),
                                 ]),
 
@@ -136,6 +140,10 @@ class TasksRelationManager extends RelationManager
                                         TextInput::make('answer.text')->label('Answer Text'),
                                         FileUpload::make('answer.image')->label('Answer Image'),
                                         FileUpload::make('answer.sound')->label('Answer Sound'),
+                                        TextInput::make('answer.id')
+                                            ->label('ID')
+                                            ->default(fn() => (string) \Illuminate\Support\Str::uuid()) // Generiši UUID
+                                            ->hidden(),
                                     ]),
                                 ]),
                             ])

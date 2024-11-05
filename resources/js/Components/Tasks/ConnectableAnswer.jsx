@@ -1,7 +1,12 @@
-import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows';
 
-const ConnectableQuestion = ({ id, setPairs, selectedElement, setSelectedElement, item }) => {
-    const updateXarrow = useXarrow()
+const ConnectableAnswer = ({ id, setPairs, selectedElement, setSelectedElement, item }) => {
+
+
+    const handleConnection = (id) => {
+        if (selectedElement.id === id) {
+            setPairs((prevPairs) => [...prevPairs, { start: selectedElement.question.id, end: item.answer.id }]);
+        }
+    }
 
     if (item.question.image && !item.question.text) return <div
         style={{
@@ -56,10 +61,11 @@ const ConnectableQuestion = ({ id, setPairs, selectedElement, setSelectedElement
     return (
 
 
-        <div onClick={() => setSelectedElement(item)} id={id} className={` ${selectedElement?.id === item?.id ? 'bg-[#a5c2f4] text-white' : 'text-black bg-white'} h-10  hover:bg-[#a5c2f4] text-xl hover:text-white text-black  duration-300 ease-in-out  flex justify-center rounded items-center pt-5 pb-5 px-20 cursor-pointer`}>
+        <div onClick={() => handleConnection(item.id)} id={id} className={` ${selectedElement === id ? 'bg-[#a5c2f4] text-white' : 'text-black bg-white'} h-10  hover:bg-[#a5c2f4] text-xl hover:text-white text-black  duration-300 ease-in-out  flex justify-center rounded items-center pt-5 pb-5 px-20 cursor-pointer`}>
             <span className='font-bold text-center'> {item.question.text}</span>
         </div>
     )
 
 }
-export default ConnectableQuestion
+
+export default ConnectableAnswer
