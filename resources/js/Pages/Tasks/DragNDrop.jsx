@@ -1,6 +1,6 @@
 import TaskHeader from '@/Components/Global/TaskHeader'
 import React from 'react'
-import { useDrag } from 'react-dnd'
+
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 import DragCard from '@/Components/DNDTask/Card'

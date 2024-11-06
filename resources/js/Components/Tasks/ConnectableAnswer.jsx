@@ -1,68 +1,39 @@
 
-const ConnectableAnswer = ({ id, setPairs, selectedElement, setSelectedElement, item }) => {
+const ConnectableAnswer = ({ id, setPairs, selectedElement, setSelectedElement, item, pairs }) => {
 
+    const isGreen = pairs.some(pair => pair.end === id);
 
     const handleConnection = (id) => {
+        if (!selectedElement) {
+            return
+        }
+        setSelectedElement(null)
         if (selectedElement.id === id) {
             setPairs((prevPairs) => [...prevPairs, { start: selectedElement.question.id, end: item.answer.id }]);
         }
     }
-
-    if (item.question.image && !item.question.text) return <div
-        style={{
-            borderRadius: 10,
-            backgroundColor: 'white',
-            width: '220px',
-            padding: '5px',
-            height: '220px',
-
-        }}
-    >
+    if (item.answer.image && !item.answer.text) return <div onClick={() => handleConnection(item.id)} id={id} className={`   ${!isGreen && selectedElement && 'hover:bg-[#a5c2f4]  hover:text-white'} h-full  text-xl hover:text-white text-black bg-white  duration-300 ease-in-out  flex justify-center rounded items-center p-2 cursor-pointer  ${isGreen && 'bg-[#36c980] text-white'}`}>
         <img
-            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${item.question.image}`}
-            alt={item.question.text}
-            style={{
-                width: '210px',
-                height: '210px',
-                overflow: 'hidden',
-                objectFit: 'contain'
-            }}
+            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${item.answer.image}`}
+            alt={item.answer.text}
+            className='w-24 h-24 object-contain rounded-md '
         />
+
+    </div>
+    if (item.answer.image && item.answer.text) return <div onClick={() => handleConnection(item.id)} id={id} className={`   ${!isGreen && selectedElement && 'hover:bg-[#a5c2f4]  hover:text-white'} h-full  flex-col  text-xl hover:text-white text-black bg-white  duration-300 ease-in-out  flex justify-center rounded items-center p-2 cursor-pointer  ${isGreen && 'bg-[#36c980] text-white'}`}>
+        <img
+            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${item.answer.image}`}
+            alt={item.answer.text}
+            className='w-24 h-24 object-contain rounded-md '
+        />
+        <span className='font-bold text-center'> {item.answer.text}</span>
     </div>
 
-    if (item.question.image && item.question.text) return <div
-
-        style={{
-            borderRadius: 10,
-            backgroundColor: 'white',
-            cursor: 'pointer',
-            width: '220px',
-            padding: '5px',
-            height: '220px',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-        }}
-    >
-        <img
-            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${item.question.image}`}
-            alt={item.question.text}
-
-            style={{
-                width: '160px',
-                height: '160px',
-                overflow: 'hidden',
-                objectFit: 'contain'
-
-            }}
-        />
-        <span className='text-center font-bold text-xl' > {item.question.text}</span>
-    </div>
     return (
 
 
-        <div onClick={() => handleConnection(item.id)} id={id} className={` ${selectedElement === id ? 'bg-[#a5c2f4] text-white' : 'text-black bg-white'} h-10  hover:bg-[#a5c2f4] text-xl hover:text-white text-black  duration-300 ease-in-out  flex justify-center rounded items-center pt-5 pb-5 px-20 cursor-pointer`}>
-            <span className='font-bold text-center'> {item.question.text}</span>
+        <div onClick={() => handleConnection(item.id)} id={id} className={`  ${isGreen ? 'bg-[#36c980]' : 'bg-white'} bg-white  ${!isGreen && selectedElement && 'hover:bg-[#a5c2f4]  hover:text-white'} h-full text-xl ${isGreen ? 'text-white' : 'text-black'}  duration-300 ease-in-out  flex justify-center rounded items-center pt-5 pb-5 px-20 cursor-pointer`}>
+            <span className='font-bold text-center'> {item.answer.text}</span>
         </div>
     )
 

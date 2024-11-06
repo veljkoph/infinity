@@ -4,7 +4,8 @@ import React, { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import Xarrow, { Xwrapper } from "react-xarrows";
-
+import { router } from '@inertiajs/react'
+import Correct from "@/Components/Global/Correct";
 
 const ConnectLines = ({ task }) => {
 
@@ -18,16 +19,41 @@ const ConnectLines = ({ task }) => {
         setShuffledAnswers(shuffled);
     }, [task.answers]);
 
+    useEffect(() => {
+        if (pairs.length === task.answers.length) {
+            task.nextTaskId && setTimeout(() => router.visit(`/task/${task.nextTaskId}`), 1000)
+        }
+    }, [pairs])
+
     return (
-        <div className='flex flex-1 flex-row bg-lightBlue justify-center items-center w-100 gap-48'>
-            <div className='flex flex-col gap-20'>
-                {task.answers.map((item) => <ConnectableQuestion key={item.question.id} id={item.question.id} item={item} setPairs={setPairs} selectedElement={selectedElement} setSelectedElement={setSelectedElement} />)}
-
+        <div className='flex flex-1 flex-row bg-lightBlue justify-center items-center w-100 gap-48 p-12 2xl:p-20'>
+            <div className="flex flex-col justify-between h-full w-1/2 gap-6 2xl:gap-12">
+                {task.answers.map((item) => (
+                    <ConnectableQuestion
+                        pairs={pairs}
+                        key={item.question.id}
+                        id={item.question.id}
+                        item={item}
+                        setPairs={setPairs}
+                        selectedElement={selectedElement}
+                        setSelectedElement={setSelectedElement}
+                    />
+                ))}
             </div>
-            <div className='flex flex-col gap-20'>
-                {shuffledAnswers.map((item) => <ConnectableAnswer key={item.answer.id} id={item.answer.id} item={item} setPairs={setPairs} selectedElement={selectedElement} setSelectedElement={setSelectedElement} />)}
+            <div className="flex flex-col justify-between h-full w-1/2 gap-6 2xl:gap-12">
+                {shuffledAnswers.map((item) => (
+                    <ConnectableAnswer
+                        pairs={pairs}
+                        key={item.answer.id}
+                        id={item.answer.id}
+                        item={item}
+                        setPairs={setPairs}
+                        selectedElement={selectedElement}
+                        setSelectedElement={setSelectedElement}
+                    />
+                ))}
             </div>
-
+            {pairs.length === task.answers.length && <Correct hasNextTask={task.nextTaskId} lessonId={task.lessonId} />}
             {pairs.map((pair) => <Xarrow key={pair.start} start={pair.start} end={pair.end} />)}
         </div>
     );
