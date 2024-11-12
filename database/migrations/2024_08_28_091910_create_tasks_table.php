@@ -23,7 +23,7 @@ return new class extends Migration
             $table->boolean('showHelperText')->nullable();
             $table->timestamps();
             $table->integer('order')->default(0);
-            $table->enum('type', ['drag_and_drop', 'drawing', 'question', 'math', 'connect_lines']);
+            $table->enum('type', ['drag_and_drop', 'drawing', 'question', 'math', 'connect_lines', 'sorting']);
             //   $table->json('additional_data')->nullable(); // JSON polje za specifične podatke
 
         });

@@ -35,7 +35,7 @@ class TasksRelationManager extends RelationManager
                                 'drawing' => 'Crtanje Slova/Reči',
                                 'question' => 'Pitanja sa odgovorima',
                                 'connect_lines' => 'Povezivanje',
-                                'other_type2' => 'Other Type 2',
+                                'sorting' => 'Sortiranje',
                             ])
                             ->required()
                             ->label('Tip zadatka'),
@@ -167,6 +167,38 @@ class TasksRelationManager extends RelationManager
                             ->directory('sounds')
                             ->maxSize(10240),
 
+                    ]),
+                Section::make(__('SORTIRANJE'))->columns(1)
+                    ->columnSpan(2)->visible(fn($get) => $get('type') === 'sorting')->schema([
+                        Select::make('question')
+                            ->options([
+                                'horizontal' => 'Horizontalno',
+                                'vertical' => 'Vertikalno'
+                            ])
+                            ->required()
+                            ->label('Tip sortiranja (horizontalno/vertikalno'),
+                        Repeater::make('answers')
+                            ->label('Dodaj reci ili slova za sortiranje')
+                            ->schema([
+
+                                Section::make('Reč (ili slovo)')->schema([
+
+                                    Grid::make(3)->schema([
+                                        TextInput::make('text')->label('Text'),
+                                        FileUpload::make('image')->label('Image'),
+                                        FileUpload::make('sound')->label('Sound'),
+                                        TextInput::make('id')
+                                            ->label('ID')
+                                            ->default(fn() => (string) random_int(1, 10000)) // Generiši slučajan broj između 1 i 10,000
+                                            ->disabled() // Onemogućava ručnu izmenu
+                                            ->hidden(),
+                                    ]),
+                                ]),
+                            ])
+                            ->minItems(2)
+                            ->maxItems(4)
+                            ->columns(2)
+                            ->required(),
                     ]),
 
             ]);
