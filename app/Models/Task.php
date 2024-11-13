@@ -21,7 +21,20 @@ class Task extends Model
     ];
 
     protected $casts = ['answers' => 'array'];
-    protected $appends = ['nextTaskId', 'lessonId'];
+    protected $appends = ['nextTaskId', 'lessonId', 'correctSorting'];
+
+    public function getCorrectSortingAttribute()
+    {
+
+        if ($this->type === 'sorting') {
+            return collect($this->answers)
+                ->pluck('text')
+                ->implode('');
+        }
+
+        return null;
+    }
+
     public function exercise()
     {
         return $this->belongsTo(Exercise::class);

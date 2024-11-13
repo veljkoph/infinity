@@ -1,46 +1,83 @@
+import React, { useState } from 'react';
+import {
+    DndContext,
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+    DragOverlay,
+} from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    sortableKeyboardCoordinates,
+    rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import { SortableItem } from '@/Components/Sorting/SortableItem';
 
-import { Card } from '@/Components/Sorting/Card'
-import update from 'immutability-helper'
-import React from 'react'
-import { useCallback } from 'react'
-import { useState } from 'react'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-
+const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+};
 
 const Sorting = ({ task }) => {
-    const [cards, setCards] = useState(task.answers)
-    const moveCard = useCallback((dragIndex, hoverIndex) => {
-        setCards((prevCards) =>
-            update(prevCards, {
-                $splice: [
-                    [dragIndex, 1],
-                    [hoverIndex, 0, prevCards[dragIndex]],
-                ],
-            }),
-        )
-    }, [])
-    const renderCard = useCallback((card, index) => {
-        return (
-            <Card
-                key={card.id}
-                index={index}
-                id={card.id}
-                text={card.text}
-                moveCard={moveCard}
-                direction={task.question}
-            />
-        )
-    }, [])
+    const [items, setItems] = useState(() => shuffleArray(task.answers));
+    const [activeId, setActiveId] = useState(null); // Dodajemo stanje za aktivni element
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+
+    function handleDragStart(event) {
+        setActiveId(event.active.id); // Čuvamo aktivni element kad počne prevlačenje
+    }
+
+    function handleDragEnd(event) {
+        const { active, over } = event;
+        setActiveId(null); // Poništavamo aktivni element kad prevlačenje završi
+
+        if (active.id !== over.id) {
+            setItems((items) => {
+                const oldIndex = items.findIndex(item => item.id === active.id);
+                const newIndex = items.findIndex(item => item.id === over.id);
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
+    }
 
     return (
-        <div className='flex flex-col bg-slate-200 w-full relative items-center '>
-            <h1>{task.title}</h1>
-            <DndProvider backend={HTML5Backend}>
-                <div className={`flex ${task.question === 'horizontal' ? 'flex-row' : 'flex-col'} p-3 gap-8`} >{cards.map((card, i) => renderCard(card, i))}</div>
-            </DndProvider>
-        </div>
-    )
-}
+        <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
 
-export default Sorting
+        >
+            <SortableContext
+                items={items.map(item => item.id)}
+                strategy={rectSortingStrategy}
+
+
+            >
+                <div className="flex flex-row items-center justify-center w-full bg-white ">
+                    {items.map(item => (
+                        <SortableItem key={item.id} id={item.id} text={item.text} />
+                    ))}</div>
+            </SortableContext>
+
+            {/* Prikazujemo `DragOverlay` za aktivni element */}
+            <DragOverlay>
+                {activeId ? <SortableItem id={activeId} text={items.find(item => item.id === activeId)?.text} /> : null}
+            </DragOverlay>
+        </DndContext>
+    );
+};
+
+export default Sorting;
