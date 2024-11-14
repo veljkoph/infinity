@@ -26,8 +26,8 @@ const TaskHeader = ({ task }) => {
 
     }
     return (
-        <div className='flex flex-row justify-between items-center  bg-white min-h-10 '>
-            <span className='text-center  text-xl font-bold'>{task.title}</span>
+        <div className='flex  flex-row justify-between items-center bg-slate-100 p-5 min-h-12 w-full '>
+            <span className='text-center  text-l font-bold'>{task.title}</span>
             <div className='flex flex-row gap-2'>
                 {task.sound && <audio ref={audioRef} src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${task.sound}`} />}
                 {task.sound && <button onClick={playAudio} className='bg-red-400 text-white p-1 rounded-md'> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">

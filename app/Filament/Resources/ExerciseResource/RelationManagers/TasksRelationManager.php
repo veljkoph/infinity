@@ -110,6 +110,10 @@ class TasksRelationManager extends RelationManager
                             ->columns(2)
                             ->required(),
                     ]),
+
+
+                //Nema id u prvoj iteraciji - popravi
+
                 Section::make(__('POVEZIVANJE'))->columns(1)
                     ->columnSpan(2)->visible(fn($get) => $get('type') === 'connect_lines')->schema([
 
@@ -118,8 +122,8 @@ class TasksRelationManager extends RelationManager
                             ->schema([
                                 TextInput::make('id')
                                     ->label('ID')
-                                    ->default(fn() => (string) \Illuminate\Support\Str::uuid())
-                                    ->hidden(),
+                                    ->default(fn() => (string) \Illuminate\Support\Str::uuid())->hidden(),
+
 
                                 Section::make('Pitanje (Bice prikazano sa leve strane)')->schema([
 
@@ -129,12 +133,11 @@ class TasksRelationManager extends RelationManager
                                         FileUpload::make('question.sound')->label('Question Sound'),
                                         TextInput::make('question.id')
                                             ->label('ID')
-                                            ->default(fn() => (string) \Illuminate\Support\Str::uuid()) // Generiši UUID
-                                            ->hidden(),
+                                            ->default(fn() => (string) \Illuminate\Support\Str::uuid())->hidden(),
+
+
                                     ]),
                                 ]),
-
-
                                 Section::make('Odgovor (Bice prikazan sa desne strane)')->schema([
                                     Grid::make(3)->schema([
                                         TextInput::make('answer.text')->label('Answer Text'),
@@ -146,12 +149,15 @@ class TasksRelationManager extends RelationManager
                                             ->hidden(),
                                     ]),
                                 ]),
-                            ])
+                            ])->afterStateHydrated(function ($state) {
+                                if (empty($state['answer']['id'])) {
+                                    // Dodeli ID ako nije postavljen
+                                    $state['answer']['id'] = (string) \Illuminate\Support\Str::uuid();
+                                }
+                            })
+                            ->defaultItems(0)
 
-                            ->minItems(2)
-                            ->maxItems(4)
-                            ->columns(2)
-                            ->required(),
+
                     ]),
                 Section::make(__('CRTANJE SLOVA'))->columns(1)
                     ->columnSpan(2)->visible(fn($get) => $get('type') === 'drawing')->schema([
@@ -170,13 +176,12 @@ class TasksRelationManager extends RelationManager
                     ]),
                 Section::make(__('SORTIRANJE'))->columns(1)
                     ->columnSpan(2)->visible(fn($get) => $get('type') === 'sorting')->schema([
-                        Select::make('question')
-                            ->options([
-                                'horizontal' => 'Horizontalno',
-                                'vertical' => 'Vertikalno'
-                            ])
-                            ->required()
-                            ->label('Tip sortiranja (horizontalno/vertikalno'),
+                        FileUpload::make('sound')
+                            ->label('Zvuk')
+                            ->acceptedFileTypes(['audio/*'])
+                            ->directory('sounds')
+                            ->maxSize(10240),
+                        FileUpload::make('image')->label('Slika (prikazuje se u naslovu)'),
                         Repeater::make('answers')
                             ->label('Dodaj reci ili slova za sortiranje')
                             ->schema([
@@ -185,18 +190,18 @@ class TasksRelationManager extends RelationManager
 
                                     Grid::make(3)->schema([
                                         TextInput::make('text')->label('Text'),
-                                        FileUpload::make('image')->label('Image'),
-                                        FileUpload::make('sound')->label('Sound'),
+                                        // FileUpload::make('image')->label('Image'), NIJE POTREBNO OVDE
+                                        // FileUpload::make('sound')->label('Sound'),
                                         TextInput::make('id')
                                             ->label('ID')
-                                            ->default(fn() => (string) random_int(1, 10000)) // Generiši slučajan broj između 1 i 10,000
-                                            ->disabled() // Onemogućava ručnu izmenu
+                                            ->default(fn() => (string) random_int(1, 10000))
+                                            ->disabled()
                                             ->hidden(),
                                     ]),
                                 ]),
                             ])
                             ->minItems(2)
-                            ->maxItems(4)
+
                             ->columns(2)
                             ->required(),
                     ]),

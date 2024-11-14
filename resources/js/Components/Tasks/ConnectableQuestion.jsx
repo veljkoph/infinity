@@ -24,7 +24,16 @@ const ConnectableQuestion = ({ id, pairs, selectedElement, setSelectedElement, i
     </div>
 
     return (
-        <div onClick={() => setSelectedElement(item)} id={id} className={` ${selectedElement?.id === item?.id ? 'bg-[#a5c2f4] text-white' : 'text-black bg-white'}   ${!isGreen && 'hover:bg-[#a5c2f4]  hover:text-white'}  text-xl hover:text-white text-black  duration-300 ease-in-out  flex justify-center rounded items-center pt-5 pb-5 px-20 cursor-pointer  ${isGreen && 'bg-[#36c980] text-white'}`}>
+        <div onClick={() => setSelectedElement(item)} id={id} className={`
+            text-xl duration-300 ease-in-out flex justify-center
+            rounded items-center pt-5 pb-5 px-20 cursor-pointer
+            ${selectedElement?.id === item?.id
+                ? 'bg-[#a5c2f4] text-white'
+                : isGreen
+                    ? 'bg-[#36c980] text-white'
+                    : 'hover:bg-[#a5c2f4] hover:text-white bg-white'
+            }
+          `}>
             <span className='font-bold text-center'> {item.question.text}</span>
         </div>
     )

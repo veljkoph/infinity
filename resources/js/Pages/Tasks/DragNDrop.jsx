@@ -1,6 +1,5 @@
 import TaskHeader from '@/Components/Global/TaskHeader'
 import React from 'react'
-
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 import DragCard from '@/Components/DNDTask/Card'
@@ -40,7 +39,7 @@ const DragNDrop = ({ task }) => {
     }, [correctDrops])
 
     return (
-        <div className='flex flex-col bg-slate-200 w-full relative'>
+        <div className='flex flex-col bg-slate-200 w-full relative fade-in'>
             <TaskHeader task={task} />
             <DndProvider backend={HTML5Backend} >
                 <div className="flex flex-row  w-full  p-4">

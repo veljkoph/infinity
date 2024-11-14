@@ -16,7 +16,6 @@ export const SortableItem = ({ id, text }) => {
     const style = {
         transform: CSS.Transform.toString(transform),
         transition: transition || 'transform 250ms ease',
-        padding: "8px",
         border: "1px solid #ccc",
         borderRadius: "4px",
         marginBottom: "8px",
@@ -32,7 +31,7 @@ export const SortableItem = ({ id, text }) => {
 
     return (
         <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-            {text}
+            {text.toUpperCase()}
         </div>
     );
 };

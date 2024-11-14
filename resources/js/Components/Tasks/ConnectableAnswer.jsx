@@ -32,9 +32,19 @@ const ConnectableAnswer = ({ id, setPairs, selectedElement, setSelectedElement, 
     return (
 
 
-        <div onClick={() => handleConnection(item.id)} id={id} className={`  ${isGreen ? 'bg-[#36c980]' : 'bg-white'} bg-white  ${!isGreen && selectedElement && 'hover:bg-[#a5c2f4]  hover:text-white'} h-full text-xl ${isGreen ? 'text-white' : 'text-black'}  duration-300 ease-in-out  flex justify-center rounded items-center pt-5 pb-5 px-20 cursor-pointer`}>
-            <span className='font-bold text-center'> {item.answer.text}</span>
+        <div
+            onClick={() => handleConnection(item.id)}
+            id={id}
+            className={`
+    ${isGreen ? 'bg-[#36c980] text-white' : 'bg-white text-black'}
+    ${!isGreen && selectedElement ? 'hover:bg-[#a5c2f4] hover:text-white' : ''}
+    text-xl duration-300 ease-in-out flex justify-center rounded items-center pt-5 pb-5 px-20 cursor-pointer
+  `}
+        >
+            <span className="font-bold text-center">{item.answer.text}</span>
         </div>
+
+
     )
 
 }
