@@ -4,6 +4,7 @@ import Draw from './Draw';
 import DragNDrop from './DragNDrop';
 import ConnectLines from './ConnectLines';
 import Sorting from './Sorting';
+import SortingColumns from './SortingColumns';
 
 const Home = ({ task }) => {
 
@@ -12,7 +13,8 @@ const Home = ({ task }) => {
         drawing: Draw,
         drag_and_drop: DragNDrop,
         connect_lines: ConnectLines,
-        sorting: Sorting
+        sorting: Sorting,
+        sorting_columns: SortingColumns,
 
     };
 
