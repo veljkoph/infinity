@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Correct from '@/Components/Global/Correct'
 import { router } from '@inertiajs/react'
+import TaskContainer from '@/Components/Global/TaskContainer'
 
 
 const DragNDrop = ({ task }) => {
@@ -39,8 +40,7 @@ const DragNDrop = ({ task }) => {
     }, [correctDrops])
 
     return (
-        <div className='flex flex-col bg-slate-200 w-full relative fade-in'>
-            <TaskHeader task={task} />
+        <TaskContainer task={task} className='bg-slate-200'>
             <DndProvider backend={HTML5Backend} >
                 <div className="flex flex-row  w-full  p-4">
                     {task.answers.map((item, index) => (
@@ -56,7 +56,7 @@ const DragNDrop = ({ task }) => {
                 </div >
                 {correctDrops.length === task.answers.length && <Correct hasNextTask={task.nextTaskId} lessonId={task.lessonId} />}
             </DndProvider >
-        </div >
+        </TaskContainer >
     )
 }
 

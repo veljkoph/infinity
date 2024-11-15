@@ -23,6 +23,7 @@ const DropZone = ({ dropItem }) => {
     }));
     if (dropItem.answer.image && !dropItem.answer.text) return <div
         ref={drop}
+        className='shadow1'
         style={{
             padding: '16px',
             cursor: 'move',
@@ -52,7 +53,7 @@ const DropZone = ({ dropItem }) => {
     return (
         <div
             ref={drop}
-
+            className='shadow1'
             style={{
                 padding: '16px',
                 cursor: 'move',

@@ -18,6 +18,7 @@ import {
 import { SortableItem } from '@/Components/Sorting/SortableItem';
 import Correct from '@/Components/Global/Correct';
 import TaskHeader from '@/Components/Global/TaskHeader';
+import TaskContainer from '@/Components/Global/TaskContainer';
 
 const shuffleArray = (array) => {
     let shuffled = [...array];
@@ -71,9 +72,7 @@ const Sorting = ({ task }) => {
     }
 
     return (
-        <div className='flex flex-col relative items-center  border-l border-r border-b  rounded-b-lg w-full  bg-white fade-in'>
-            <TaskHeader task={task} />
-
+        <TaskContainer task={task} className='bg-slate-300'>
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
@@ -107,7 +106,7 @@ const Sorting = ({ task }) => {
                 </DragOverlay>
                 {isFinished && <Correct hasNextTask={task.nextTaskId} lessonId={task.lessonId} />}
             </DndContext>
-        </div>
+        </TaskContainer>
     );
 };
 

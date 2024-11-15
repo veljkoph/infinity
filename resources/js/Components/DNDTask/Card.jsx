@@ -22,7 +22,7 @@ const DragCard = ({ item, handleDropSuccess }) => {
     }));
 
     if (item.question.image && item.question.text) return <div
-        ref={drag}
+        ref={drag} className='shadow1'
         style={{
             opacity: isDragging ? 0 : 1,
             borderRadius: 10,
@@ -53,6 +53,7 @@ const DragCard = ({ item, handleDropSuccess }) => {
     </div>
     if (item.question.image && !item.question.text) return <div
         ref={drag}
+        className='shadow1'
         style={{
             opacity: isDragging ? 0 : 1,
             borderRadius: 10,
@@ -80,6 +81,7 @@ const DragCard = ({ item, handleDropSuccess }) => {
     return (
         <div
             ref={drag}
+            className='shadow1'
             style={{
                 opacity: isDragging ? 0 : 1,
                 padding: '16px',

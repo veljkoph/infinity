@@ -36,6 +36,7 @@ class TasksRelationManager extends RelationManager
                                 'question' => 'Pitanja sa odgovorima',
                                 'connect_lines' => 'Povezivanje',
                                 'sorting' => 'Sortiranje',
+                                'sorting_columns' => 'Sortiranje u kolone',
                             ])
                             ->required()
                             ->label('Tip zadatka'),
@@ -151,7 +152,6 @@ class TasksRelationManager extends RelationManager
                                 ]),
                             ])->afterStateHydrated(function ($state) {
                                 if (empty($state['answer']['id'])) {
-                                    // Dodeli ID ako nije postavljen
                                     $state['answer']['id'] = (string) \Illuminate\Support\Str::uuid();
                                 }
                             })
@@ -191,6 +191,36 @@ class TasksRelationManager extends RelationManager
                                     Grid::make(3)->schema([
                                         TextInput::make('text')->label('Text'),
                                         // FileUpload::make('image')->label('Image'), NIJE POTREBNO OVDE
+                                        // FileUpload::make('sound')->label('Sound'),
+                                        TextInput::make('id')
+                                            ->label('ID')
+                                            ->default(fn() => (string) random_int(1, 10000))
+                                            ->disabled()
+                                            ->hidden(),
+                                    ]),
+                                ]),
+                            ])
+                            ->minItems(2)
+
+                            ->columns(2)
+                            ->required(),
+                    ]),
+                Section::make(__('SORTIRANJE U KOLONE'))->columns(1)
+                    ->columnSpan(2)->visible(fn($get) => $get('type') === 'sorting_columns')->schema([
+                        FileUpload::make('sound')
+                            ->label('Zvuk')
+                            ->acceptedFileTypes(['audio/*'])
+                            ->directory('sounds')
+                            ->maxSize(10240),
+                        Repeater::make('answers')
+                            ->label('Dodaj reci ili slova za sortiranje u kolone')
+                            ->schema([
+
+                                Section::make('Reč (ili slovo)')->schema([
+
+                                    Grid::make(3)->schema([
+                                        TextInput::make('text')->label('Text'),
+                                        FileUpload::make('image')->label('Image'),
                                         // FileUpload::make('sound')->label('Sound'),
                                         TextInput::make('id')
                                             ->label('ID')

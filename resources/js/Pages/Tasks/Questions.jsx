@@ -1,4 +1,5 @@
 import Correct from '@/Components/Global/Correct';
+import TaskContainer from '@/Components/Global/TaskContainer';
 import { router } from '@inertiajs/react';
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next';
@@ -32,9 +33,9 @@ const Questions = ({ task }) => {
     }
 
     return (
-        <div className='flex flex-col p-10 bg-slate-200 w-full gap-4 relative'>
-            <h1 className='text-center font-semibold text-2xl'>{task.title}</h1>
-            <span className='text-center font-semibold text-xl'>{task.question}</span>
+        <TaskContainer className='bg-slate-100' task={task}>
+
+            <span className='text-center font-semibold text-xl block'>{task.question}</span>
             {task.sound && <> <audio ref={audioRef} src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${task.sound}`} />
                 <button className='absolute bg-white p-2 rounded-2xl right-20' onClick={playAudio}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10">
@@ -46,7 +47,7 @@ const Questions = ({ task }) => {
                 task.answers[0].image ?
                     <ul className='grid grid-cols-2 gap-5 justify-center items-center mx-auto my-auto '>
                         {task.answers.map((answer, index) => (
-                            <li onClick={() => correctAnswerHandler(index, answer)} key={index} className={`flex flex-col items-center justify-center cursor-pointer rounded-md bg-white transform transition-transform duration-300 hover:scale-105 ${wrongAnswerIndices.includes(index) ? 'animate-borderFadeIn inset-0' : 'border-2 '}`}>
+                            <li onClick={() => correctAnswerHandler(index, answer)} key={index} className={`flex flex-col items-center justify-center cursor-pointer rounded-md bg-white transform transition-transform duration-300 hover:scale-105 shadow1 ${wrongAnswerIndices.includes(index) ? 'animate-borderFadeIn inset-0' : 'border-2 '}`}>
                                 <img
                                     src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${answer.image}`}
                                     alt={answer.name}
@@ -56,9 +57,9 @@ const Questions = ({ task }) => {
                             </li>
                         ))}
                     </ul> :
-                    <ul className='grid w-full grid-cols-2 gap-4 justify-center items-center pt-20'>
+                    <ul className='grid w-full grid-cols-2 gap-4  justify-center items-center pt-20'>
                         {task.answers.map((answer, index) => (
-                            <li onClick={() => correctAnswerHandler(index, answer)} key={index} className={`flex items-center  w-full justify-center h-20  bg-white shadow-sm  rounded-md transition-colors duration-500 ease-in-out cursor-pointer ${wrongAnswerIndices.includes(index) ? 'animate-borderFadeIn inset-0' : 'border-2  border-transparent'}`}>
+                            <li onClick={() => correctAnswerHandler(index, answer)} key={index} className={`flex items-center  w-full justify-center h-20  bg-white shadow-sm  rounded-md transition-colors duration-500 ease-in-out cursor-pointer shadow1 ${wrongAnswerIndices.includes(index) ? 'animate-borderFadeIn inset-0' : 'border-2  border-transparent'}`}>
                                 {answer.answer}
                             </li>
 
@@ -66,7 +67,7 @@ const Questions = ({ task }) => {
                     </ul>
             }
 
-        </div>
+        </TaskContainer>
     )
 }
 

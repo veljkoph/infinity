@@ -6,6 +6,7 @@ import { Stage, Layer, Line, Text } from 'react-konva';
 import { createWorker } from 'tesseract.js';
 import { router } from '@inertiajs/react';
 import TaskHeader from '@/Components/Global/TaskHeader';
+import TaskContainer from '@/Components/Global/TaskContainer';
 
 const Draw = ({ task }) => {
     const { t } = useTranslation()
@@ -106,8 +107,7 @@ const Draw = ({ task }) => {
 
 
     return (
-        <div className='bg-slate-200 relative'>
-            <TaskHeader task={task} />
+        <TaskContainer className='bg-slate-200' task={task}>
             {/* {isLoading ? "Loading..." : <span className="text-lg font-bold">Res: {textResult}</span>} */}
             {task.showHelperText ? <span style={{ fontSize: `${fontSize}px` }} className={`absolute  rounded-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10`}>{task.helperText}</span> : ''}
 
@@ -142,17 +142,12 @@ const Draw = ({ task }) => {
                     ))}
                 </Layer>
             </Stage>
-            {/* <select
-                value={tool}
-                onChange={(e) => {
-                    setTool(e.target.value);
-                }}
-            >
-                <option value="pen">Pen</option>
-                <option value="eraser">Eraser</option>
-            </select> */}
-            <button className='bg-green-700 text-white p-2 rounded-md  absolute right-20' onClick={handleExport}>{t('check')}</button>
-        </div>
+
+            <button className='bg-green-500 hover:bg-green-700 text-white p-5 rounded-md  absolute right-5 top-24 font-bold' onClick={handleExport}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+            </button>
+        </TaskContainer>
     );
 };
 export default Draw;
