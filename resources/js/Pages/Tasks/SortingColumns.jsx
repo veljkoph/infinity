@@ -74,8 +74,9 @@ const DroppableColumn = ({ id, items }) => {
 };
 
 const SortingColumns = ({ task }) => {
+    console.log(task)
     const [unassignedItems, setUnassignedItems] = useState([
-        { id: "item1", content: "Item 1" },
+        { id: "item1", content: "Item 1", column: 1, },
         { id: "item2", content: "Item 2" },
         { id: "item3", content: "Item 3" },
         { id: "item4", content: "Item 4" },

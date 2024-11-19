@@ -21,7 +21,7 @@ class Task extends Model
     ];
 
     protected $casts = ['answers' => 'array'];
-    protected $appends = ['nextTaskId', 'lessonId', 'correctSorting'];
+    protected $appends = ['nextTaskId', 'lessonId', 'correctSorting', 'sortableItems'];
 
     public function getCorrectSortingAttribute()
     {
@@ -30,6 +30,18 @@ class Task extends Model
             return collect($this->answers)
                 ->pluck('text')
                 ->implode('');
+        }
+
+        return null;
+    }
+    public function getSortableItemsAttribute()
+    {
+        if ($this->type === 'sorting_columns') {
+            return collect($this->answers)
+                ->pluck('items')
+                ->flatten(1)
+                ->shuffle()
+                ->all();
         }
 
         return null;

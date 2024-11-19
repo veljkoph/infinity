@@ -205,36 +205,36 @@ class TasksRelationManager extends RelationManager
                             ->columns(2)
                             ->required(),
                     ]),
-                Section::make(__('SORTIRANJE U KOLONE'))->columns(1)
-                    ->columnSpan(2)->visible(fn($get) => $get('type') === 'sorting_columns')->schema([
-                        FileUpload::make('sound')
-                            ->label('Zvuk')
-                            ->acceptedFileTypes(['audio/*'])
-                            ->directory('sounds')
-                            ->maxSize(10240),
+                Section::make(__('SORTIRANJE U KOLOINE'))
+
+                    ->visible(fn($get) => $get('type') === 'sorting_columns')
+                    ->schema([
+
+
+                        // Repeater za kolone
                         Repeater::make('answers')
-                            ->label('Dodaj reci ili slova za sortiranje u kolone')
+                            ->label('Dodaj kolone')
                             ->schema([
+                                TextInput::make('name')
+                                    ->label('Naziv kolone')
+                                    ->required(),
 
-                                Section::make('Reč (ili slovo)')->schema([
-
-                                    Grid::make(3)->schema([
-                                        TextInput::make('text')->label('Text'),
-                                        FileUpload::make('image')->label('Image'),
-                                        // FileUpload::make('sound')->label('Sound'),
-                                        TextInput::make('id')
-                                            ->label('ID')
-                                            ->default(fn() => (string) random_int(1, 10000))
-                                            ->disabled()
-                                            ->hidden(),
-                                    ]),
-                                ]),
+                                // Repeater za stavke unutar svake kolone
+                                Repeater::make('items')
+                                    ->label('Dodaj stavke u kolonu (Ili slika ili tekst ili oba (NE OSTAVLJATI PRAZNO)')
+                                    ->schema([
+                                        TextInput::make('text')
+                                            ->label('Text'),
+                                        FileUpload::make('image')->label('Slika'),
+                                    ])
+                                    ->minItems(1)
+                                    ->maxItems(3) // Maksimalno 3 stavke po koloni
+                                    ->defaultItems(1), // Podrazumevano 1 stavka u svakoj novoj koloni
                             ])
-                            ->minItems(2)
-
-                            ->columns(2)
-                            ->required(),
-                    ]),
+                            ->minItems(1)
+                            ->maxItems(3) // Maksimalno 3 kolone
+                            ->defaultItems(1), // Podrazumevano 1 kolona
+                    ])
 
             ]);
     }
