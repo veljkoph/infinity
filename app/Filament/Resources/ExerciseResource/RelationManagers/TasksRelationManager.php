@@ -218,6 +218,10 @@ class TasksRelationManager extends RelationManager
                                 TextInput::make('name')
                                     ->label('Naziv kolone')
                                     ->required(),
+                                TextInput::make('id')
+                                    ->label('ID Kolone')
+                                    ->default(fn() => (string) \Illuminate\Support\Str::uuid()) // Generiši UUID
+                                    ->hidden(),
 
                                 // Repeater za stavke unutar svake kolone
                                 Repeater::make('items')
@@ -226,6 +230,17 @@ class TasksRelationManager extends RelationManager
                                         TextInput::make('text')
                                             ->label('Text'),
                                         FileUpload::make('image')->label('Slika'),
+                                        TextInput::make('id')
+                                            ->label('ID')
+                                            ->default(fn() => (string) \Illuminate\Support\Str::uuid()) // Generiši UUID
+                                            ->hidden(),
+                                        TextInput::make('columnID')
+                                            ->label('Column ID')
+                                            ->hidden()
+                                            ->afterStateHydrated(
+                                                fn($state, $set, $get) =>
+                                                $set('columnID', $get('../../id'))
+                                            ),
                                     ])
                                     ->minItems(1)
                                     ->maxItems(3) // Maksimalno 3 stavke po koloni
@@ -233,7 +248,12 @@ class TasksRelationManager extends RelationManager
                             ])
                             ->minItems(1)
                             ->maxItems(3) // Maksimalno 3 kolone
-                            ->defaultItems(1), // Podrazumevano 1 kolona
+                            ->defaultItems(1)
+                        // ->afterStateHydrated(function ($state) {
+                        //     if (empty($state['answer']['id'])) {
+                        //         $state['answer']['id'] = (string) \Illuminate\Support\Str::uuid();
+                        //     }
+                        // }), // Podrazumevano 1 kolona
                     ])
 
             ]);

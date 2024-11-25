@@ -1,146 +1,85 @@
 import React, { useState } from "react";
-import {
-    DndContext,
-    closestCenter,
-    useDroppable,
-    useDraggable,
-} from "@dnd-kit/core";
-import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+
 import TaskContainer from "@/Components/Global/TaskContainer";
-
-const DraggableItem = ({ id, content }) => {
-    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-        id,
-    });
-    const style = {
-
-        transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : "translate(0, 0)",
-        position: "absolute", // Uvek apsolutno na početku
-        opacity: isDragging ? 0.5 : 1,
-        zIndex: isDragging ? 100 : 1, // Povećaj Z-index dok je prevučen
-        transition: isDragging ? "none" : "transform 0.3s ease", // Smooth transition
-    };
-
-    return (
-        <div
-            ref={setNodeRef}
-            {...attributes}
-            {...listeners}
-            style={{
-                ...style,
-                padding: "10px",
-                margin: "5px",
-                backgroundColor: "lightblue",
-                border: "1px solid gray",
-                borderRadius: "5px",
-                cursor: "grab",
-            }}
-        // className="absolute"
-        >
-            {content}
-        </div>
-    );
-};
-
-const DroppableColumn = ({ id, items }) => {
-    const { setNodeRef } = useDroppable({ id });
-
-    return (
-        <div
-            ref={setNodeRef}
-            style={{
-                width: "200px",
-                minHeight: "400px",
-                margin: "10px",
-                padding: "10px",
-                backgroundColor: "lightgray",
-                borderRadius: "5px",
-                border: "1px solid gray",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-            }}
-        >
-            <SortableContext
-                items={items.map((item) => item.id)}
-                strategy={verticalListSortingStrategy}
-            >
-                {items.map((item) => (
-                    <DraggableItem key={item.id} id={item.id} content={item.content} />
-                ))}
-            </SortableContext>
-        </div>
-    );
-};
+import DroppableColumn from "@/Components/SortingColumns/DroppableColumn";
+import DraggableItem from "@/Components/SortingColumns/DraggableItem";
 
 const SortingColumns = ({ task }) => {
-    console.log(task)
-    const [unassignedItems, setUnassignedItems] = useState([
-        { id: "item1", content: "Item 1", column: 1, },
-        { id: "item2", content: "Item 2" },
-        { id: "item3", content: "Item 3" },
-        { id: "item4", content: "Item 4" },
-    ]);
+    const [unassignedItems, setUnassignedItems] = useState(task.sortableItems);
 
-    const [columns, setColumns] = useState({
-        column1: [],
-        column2: [],
-        column3: [],
-    });
+    const [columns, setColumns] = useState(
+        task.answers.reduce((acc, answer) => {
+            acc[answer.id] = [];
+            return acc;
+        }, {})
+    );
 
     const handleDragEnd = ({ active, over }) => {
-        if (!over) return;
-
         const activeId = active.id;
-        const overId = over.id;
+        const overId = over?.id;
 
-        // Check if the item was in unassigned items
-        if (unassignedItems.some((item) => item.id === activeId)) {
-            const item = unassignedItems.find((i) => i.id === activeId);
-            const updatedItems = unassignedItems.filter((i) => i.id !== activeId);
-            setUnassignedItems(updatedItems);
+        const item = unassignedItems.find((i) => i.id === activeId) ||
+            Object.values(columns).flat().find((i) => i.id === activeId);
+
+        if (!item) return;
+
+        // Proveri da li `columnID` stavke odgovara `overId` kolone
+        if (overId && item.columnID !== overId) {
+            return;
+        }
+
+        if (overId) {
+            // Premeštanje stavke u kolonu
+            const sourceColumn = Object.keys(columns).find((key) =>
+                columns[key].some((i) => i.id === activeId)
+            );
+
+            if (sourceColumn) {
+                setColumns((prev) => ({
+                    ...prev,
+                    [sourceColumn]: prev[sourceColumn].filter((i) => i.id !== activeId),
+                }));
+            } else {
+                setUnassignedItems((prev) => prev.filter((i) => i.id !== activeId));
+            }
+
             setColumns((prev) => ({
                 ...prev,
                 [overId]: [...prev[overId], item],
             }));
         } else {
-            // Moving between columns
-            const sourceColumn = Object.keys(columns).find((key) =>
-                columns[key].some((item) => item.id === activeId)
-            );
-
-            const item = columns[sourceColumn].find((i) => i.id === activeId);
-            const sourceItems = columns[sourceColumn].filter((i) => i.id !== activeId);
-            const targetItems = [...columns[overId], item];
-
-            setColumns({
-                ...columns,
-                [sourceColumn]: sourceItems,
-                [overId]: targetItems,
-            });
+            // Ako nije blizu nijedne kolone, vraća se u početni set
+            if (!unassignedItems.some((i) => i.id === activeId)) {
+                setUnassignedItems((prev) => [...prev, item]);
+                setColumns((prev) =>
+                    Object.fromEntries(
+                        Object.entries(prev).map(([key, items]) => [
+                            key,
+                            items.filter((i) => i.id !== activeId),
+                        ])
+                    )
+                );
+            }
         }
     };
+    //MOra da se doda column text naslov, ovako pravi samo idjeve i nema texta kolone
+    console.log(columns)
 
     return (
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-            <TaskContainer task={task} className='bg-slate-100'>
-
-                <div
-                    className="flex p-10 items-center justify-center"
-                >
-                    {unassignedItems.map((item) => (
-                        <DraggableItem key={item.id} id={item.id} content={item.content} />
+            <TaskContainer task={task} className="bg-slate-100">
+                <div className="flex p-5 items-center justify-center">
+                    {unassignedItems.map((item, index) => (
+                        <DraggableItem key={item.id} id={item.id} item={item} unassignedItems={unassignedItems} />
                     ))}
                 </div>
 
-                <div
-                    className="flex flex-row w-full justify-between p-20 "
-                >
+                <div className="flex flex-row w-full justify-center gap-16 p-10">
                     {Object.keys(columns).map((columnId) => (
-                        <DroppableColumn key={columnId} id={columnId} items={columns[columnId]} />
+                        <DroppableColumn columns={task.answers} unassignedItems={unassignedItems} key={columnId} id={columnId} items={columns[columnId]} />
                     ))}
                 </div>
-
             </TaskContainer>
         </DndContext>
     );
