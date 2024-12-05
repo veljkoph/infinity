@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { DndContext, closestCenter } from "@dnd-kit/core";
-
+import { DndContext, closestCenter, rectIntersection } from "@dnd-kit/core";
+import { router } from '@inertiajs/react'
 import TaskContainer from "@/Components/Global/TaskContainer";
 import DroppableColumn from "@/Components/SortingColumns/DroppableColumn";
 import DraggableItem from "@/Components/SortingColumns/DraggableItem";
+import { useEffect } from "react";
+import Correct from "@/Components/Global/Correct";
 
 const SortingColumns = ({ task }) => {
     const [unassignedItems, setUnassignedItems] = useState(task.sortableItems);
+
+    useEffect(() => {
+
+        if (unassignedItems.length < 1) {
+            task.nextTaskId && setTimeout(() => router.visit(`/task/${task.nextTaskId}`), 1000)
+        }
+    }, [unassignedItems])
 
     const [columns, setColumns] = useState(
         task.answers.reduce((acc, answer) => {
@@ -63,13 +72,12 @@ const SortingColumns = ({ task }) => {
             }
         }
     };
-    //MOra da se doda column text naslov, ovako pravi samo idjeve i nema texta kolone
-    console.log(columns)
+
 
     return (
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <DndContext collisionDetection={rectIntersection} onDragEnd={handleDragEnd}>
             <TaskContainer task={task} className="bg-slate-100">
-                <div className="flex p-5 items-center justify-center">
+                <div className="flex p-5 2xl:p-10 items-center justify-center">
                     {unassignedItems.map((item, index) => (
                         <DraggableItem key={item.id} id={item.id} item={item} unassignedItems={unassignedItems} />
                     ))}
@@ -80,6 +88,7 @@ const SortingColumns = ({ task }) => {
                         <DroppableColumn columns={task.answers} unassignedItems={unassignedItems} key={columnId} id={columnId} items={columns[columnId]} />
                     ))}
                 </div>
+                {unassignedItems.length < 1 && <Correct hasNextTask={task.nextTaskId} lessonId={task.lessonId} />}
             </TaskContainer>
         </DndContext>
     );

@@ -4,21 +4,11 @@ import DraggableItem from "./DraggableItem";
 
 const DroppableColumn = ({ id, items, unassignedItems, columns }) => {
     const { setNodeRef } = useDroppable({ id });
-    console.log(columns)
+
     return (
         <div
             ref={setNodeRef}
-            style={{
-                width: "200px",
-                minHeight: "400px",
-                margin: "10px",
-                backgroundColor: "white",
-                borderRadius: "5px",
-                border: "1px solid gray",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-            }}
+            className="w-[212px] min-h-[380px] xl:min-h-[500px] m-[10px] bg-white border border-gray-400 rounded-[5px] flex flex-col items-center"
         >
             <SortableContext
                 items={items.map((item) => item.id)}
