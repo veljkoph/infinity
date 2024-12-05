@@ -77,7 +77,7 @@ const SortingColumns = ({ task }) => {
     return (
         <DndContext collisionDetection={rectIntersection} onDragEnd={handleDragEnd}>
             <TaskContainer task={task} className="bg-slate-100">
-                <div className="flex p-5 2xl:p-10 items-center justify-center">
+                <div className="flex p-5 2xl:p-12 items-center justify-center">
                     {unassignedItems.map((item, index) => (
                         <DraggableItem key={item.id} id={item.id} item={item} unassignedItems={unassignedItems} />
                     ))}

@@ -34,6 +34,22 @@ const DraggableItem = ({ id, item, unassignedItems }) => {
                 <img className="rounded-xl" src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${item.image}`}
                     alt={item.text} />
             </div>)
+    if (item.image && item.text)
+        return (
+            <div
+                ref={setNodeRef}
+                {...attributes}
+                {...listeners}
+                style={{
+                    ...style,
+
+                }}
+                className="p-[10px] m-[5px] flex items-center justify-between flex-col bg-white border border-gray-400 rounded-[5px] cursor-grab text-center w-[100px] h-[120px] xl:w-[140px] xl:h-[160px]"
+            >
+                <img className="rounded-xl" src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${item.image}`}
+                    alt={item.text} />
+                <span className="block text-lg font-bold"> {item?.text}</span>
+            </div>)
 
     return (
         <div
