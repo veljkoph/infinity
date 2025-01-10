@@ -41,17 +41,17 @@ const Header = () => {
 
 
                         {(i18n.language == 'sr' || i18n.language == 'sr_cir') && <img
-                            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/serbia.png`}
+                            src={`${import.meta.env.VITE_APP_BASE_URL}/images/serbia.png`}
                             alt={i18n.language}
                             className="max-w-10 rounded-md"
                         />}
                         {i18n.language == 'hr' && <img
-                            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/croatia.png`}
+                            src={`${import.meta.env.VITE_APP_BASE_URL}/images/croatia.png`}
                             alt={i18n.language}
                             className="max-w-10 rounded-md"
                         />}
                         {(i18n.language == 'slo') && <img
-                            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/slovenia.png`}
+                            src={`${import.meta.env.VITE_APP_BASE_URL}/images/slovenia.png`}
                             alt={i18n.language}
                             className="max-w-10 rounded-md"
                         />}

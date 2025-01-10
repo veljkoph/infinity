@@ -20,7 +20,7 @@ const SubjectsHome = ({ subjects }) => {
                     >
                         {subject.name}
                         <img
-                            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${subject.image}`}
+                            src={`${import.meta.env.VITE_APP_BASE_URL}/images/${subject.image}`}
                             alt={subject.name}
                             className="max-w-20 rounded-md"
                         />

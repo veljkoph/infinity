@@ -21,7 +21,7 @@ const LessonsHome = ({ lessons }) => {
                     >
                         {lesson.name}
                         <img
-                            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${lesson.image}`}
+                            src={`${import.meta.env.VITE_APP_BASE_URL}/images/${lesson.image}`}
                             alt={lesson.name}
                             className="max-w-20 rounded-md"
                         />

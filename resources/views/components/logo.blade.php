@@ -1,1 +1,1 @@
-<img src="{{ asset('storage/infinity.png') }}" alt="Logo" class="h-10">
+<img src="{{ asset('images/infinity.png') }}" alt="Logo" class="h-10">

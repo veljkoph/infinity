@@ -12,7 +12,7 @@ const TalkingAnimation = () => {
     return (
         <div>
             <div className='absolute -right-52 bottom-100'>
-                <img src={`${import.meta.env.VITE_APP_BASE_URL}/storage/bubble.png`}
+                <img src={`${import.meta.env.VITE_APP_BASE_URL}/images/bubble.png`}
                     alt='Chat'
                     className="max-w-60 " />
 
