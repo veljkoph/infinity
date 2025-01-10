@@ -17,7 +17,6 @@ class Task extends Model
         'showHelperText',
         'exercise_id',
         'type',
-
     ];
 
     protected $casts = ['answers' => 'array'];
@@ -68,8 +67,6 @@ class Task extends Model
             ->orderBy('order', 'asc')
             ->orderBy('id', 'asc')
             ->first();
-
-        // Vrati ID sledećeg taska ili `null` ako ne postoji
         return $nextTask ? $nextTask->id : null;
     }
 

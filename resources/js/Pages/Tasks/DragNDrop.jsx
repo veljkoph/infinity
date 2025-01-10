@@ -54,7 +54,7 @@ const DragNDrop = ({ task }) => {
                         ))}
                     </div>
                 </div >
-                {correctDrops.length === task.answers.length && <Correct hasNextTask={task.nextTaskId} lessonId={task.lessonId} />}
+
             </DndProvider >
         </TaskContainer >
     )

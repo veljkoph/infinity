@@ -12,15 +12,16 @@ const DropZone = ({ dropItem }) => {
                 setHasDropped(true);
                 return { correct: true };
             } else {
-
                 return { correct: false };
             }
         },
-
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
         }),
     }));
+
+
+
     if (dropItem.answer.image && !dropItem.answer.text) return <div
         ref={drop}
         className='shadow1'

@@ -7,7 +7,6 @@ import Sorting from './Sorting';
 import SortingColumns from './SortingColumns';
 
 const Home = ({ task }) => {
-
     const components = {
         question: Questions,
         drawing: Draw,
@@ -15,9 +14,7 @@ const Home = ({ task }) => {
         connect_lines: ConnectLines,
         sorting: Sorting,
         sorting_columns: SortingColumns,
-
     };
-
     const TaskType = components[task?.type];
 
     return (
