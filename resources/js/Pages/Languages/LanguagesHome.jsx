@@ -30,7 +30,7 @@ const LanguageSelector = ({ languages }) => {
                     >
                         {lang.name}
                         <img
-                            src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${lang.image}`}
+                            src={`${import.meta.env.VITE_APP_BASE_URL}/images/${lang.image}`}
                             alt={lang.name}
                             className="max-w-20 rounded-md"
                         />
