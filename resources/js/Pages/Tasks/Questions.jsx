@@ -35,7 +35,7 @@ const Questions = ({ task }) => {
     return (
         <TaskContainer className='bg-slate-100' task={task}>
 
-            <span className='text-center font-semibold text-xl block'>{task.question}</span>
+            <span className='text-center font-semibold text-xl block p-3 '>{task.question}</span>
             {task.sound && <> <audio ref={audioRef} src={`${import.meta.env.VITE_APP_BASE_URL}/storage/${task.sound}`} />
                 <button className='absolute bg-white p-2 rounded-2xl right-20' onClick={playAudio}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10">

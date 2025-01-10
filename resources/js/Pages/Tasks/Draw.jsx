@@ -4,8 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Stage, Layer, Line, Text } from 'react-konva';
 import { createWorker } from 'tesseract.js';
-import { router } from '@inertiajs/react';
-import TaskHeader from '@/Components/Global/TaskHeader';
+
 import TaskContainer from '@/Components/Global/TaskContainer';
 
 const Draw = ({ task }) => {
@@ -63,7 +62,7 @@ const Draw = ({ task }) => {
         setTextResult(data.text);
         setIsLoading(false)
 
-        calculateSimilarity(data.text, task.helperText);
+        calculateSimilarity(data.text.toUpperCase(), task.helperText.toUpperCase());
 
     }, [selectedImage]);
 
